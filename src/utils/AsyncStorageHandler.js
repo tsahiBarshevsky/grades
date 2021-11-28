@@ -24,7 +24,7 @@ function reviver(key, value) {
 const getCourses = async () => {
     try {
         const jsonValue = await AsyncStorage.getItem('@courses');
-        return jsonValue != null ? JSON.parse(jsonValue, reviver) : null;
+        return jsonValue != null ? JSON.parse(jsonValue, reviver) : new Map();
     }
     catch (e) {
         alert("An unknown error occurred.");
@@ -40,4 +40,14 @@ const setCourses = async (map) => {
     }
 }
 
-export { replacer, reviver, getCourses, setCourses };
+const clearAll = async () => {
+    try {
+        await AsyncStorage.clear()
+    } catch (e) {
+        alert(e.message);
+    }
+
+    console.log('Done.')
+}
+
+export { replacer, reviver, getCourses, setCourses, clearAll };
