@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewCourse, clearData } from '../../actions';
@@ -8,6 +8,7 @@ import { styles } from './styles';
 
 const HomeScreen = () => {
 
+    const [points, setPoints] = useState({ allPoints: 0, completedPoints: 0 });
     const courses = useSelector(state => state.courses);
     const dispatch = useDispatch();
     const coursesArray = Array.from(courses, ([key, items]) => ({ key, items }));
@@ -17,17 +18,30 @@ const HomeScreen = () => {
             return 0;
         var weighting = 0;
         var weights = 0;
-        coursesArray.forEach((course) => {
-            if (course.items.grade) {
-                weighting += (course.items.grade * course.items.weight);
-                weights += course.items.weight;
+        courses.forEach((course) => {
+            if (course.grade) {
+                weighting += (course.grade * course.weight);
+                weights += course.weight;
             }
         });
         return Number(weighting / weights).toFixed(2);
     }
 
+    const calculatePointsData = () => {
+        if (courses.size === 0)
+            return { allPoints: 0, completedPoints: 0 };
+        var allPoints = 0;
+        var completedPoints = 0;
+        courses.forEach((course) => {
+            if (course.grade && course.grade >= 60)
+                completedPoints += course.weight;
+            allPoints += course.weight;
+        });
+        return { allPoints: allPoints, completedPoints: completedPoints };
+    }
+
     const onAddNewCourse = () => {
-        const newCourse = { name: 'קורס 3', grade: null, weight: 5 };
+        const newCourse = { name: 'ציון נכשל', grade: 52, weight: 5 };
         getCourses().then((storage) => {
             var jsonMap = '';
             if (storage.size === 0) {
@@ -41,7 +55,6 @@ const HomeScreen = () => {
                 jsonMap = JSON.stringify(storage, replacer);
                 setCourses(jsonMap); // update AsyncStorage
                 dispatch(addNewCourse(newCourse)); // update store
-                console.log("New list inserted to existing map");
             }
         });
     }
@@ -49,11 +62,13 @@ const HomeScreen = () => {
     const clear = () => {
         clearAll();
         dispatch(clearData());
+        setPoints({ allPoints: 0, completedPoints: 0 });
     }
 
     useEffect(() => {
         getCourses().then((res) => {
             dispatch({ type: 'SET_COURSES', courses: res });
+            setPoints(calculatePointsData());
         });
     }, []);
 
@@ -67,9 +82,11 @@ const HomeScreen = () => {
                     <Text key={course.key}>{course.items.name} - {course.items.grade} - {course.items.weight}</Text>
                 )
             })}
-            <Text>ממוצע: {calculateGPA(coursesArray.items)}</Text>
-            <Text>נק"ז שהושלמו: </Text>
-            <Text>סה"כ נק"ז: </Text>
+            <View style={{ marginTop: 15 }}>
+                <Text>ממוצע: {calculateGPA(coursesArray.items)}</Text>
+                <Text>נק"ז שהושלמו: {points.completedPoints}</Text>
+                <Text>סה"כ נק"ז: {points.allPoints}</Text>
+            </View>
         </SafeAreaView>
     )
 }
