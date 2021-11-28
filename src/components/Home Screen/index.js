@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearData } from '../../actions';
-import { getCourses, clearAll } from '../../utils/AsyncStorageHandler';
+import { clearData, removeCourse } from '../../actions';
+import { getCourses, clearAll, replacer, setCourses } from '../../utils/AsyncStorageHandler';
 import { styles } from './styles';
 
 const HomeScreen = ({ navigation }) => {
@@ -40,6 +40,14 @@ const HomeScreen = ({ navigation }) => {
         return { allPoints: allPoints, completedPoints: completedPoints };
     }
 
+    const onRemoveCourse = (id) => {
+        const temp = new Map(courses);
+        temp.delete(id);
+        const jsonMap = JSON.stringify(temp, replacer);
+        setCourses(jsonMap); // update AsyncStorage
+        dispatch(removeCourse(id)); // update store
+    }
+
     const clear = () => {
         clearAll();
         dispatch(clearData());
@@ -60,11 +68,11 @@ const HomeScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity>
             {coursesArray.map((course) => {
                 return (
-                    <View key={course.key} style={{ marginTop: 15 }}>
+                    <TouchableOpacity onPress={() => onRemoveCourse(course.key)} key={course.key} style={{ marginTop: 15, backgroundColor: 'lightgreen' }}>
                         <Text>{course.items.name}</Text>
                         <Text>ציון: {course.items.grade}</Text>
                         <Text>משקל: {course.items.weight}</Text>
-                    </View>
+                    </TouchableOpacity>
                 )
             })}
             <View style={{ marginTop: 15 }}>

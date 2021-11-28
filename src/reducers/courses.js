@@ -14,6 +14,10 @@ const coursesReducer = (state = INITIAL_STATE, action) => {
                 ]
             });
             return newMap;
+        case 'REMOVE_COURSE':
+            const id = action.payload;
+            const mapAfterRemove = update(state, { $remove: [id] });
+            return mapAfterRemove;
         case 'CLEAR_DATA':
             return INITIAL_STATE;
         default:

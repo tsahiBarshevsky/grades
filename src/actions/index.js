@@ -8,6 +8,13 @@ export const addNewCourse = (id, newItem) => {
     }
 }
 
+export const removeCourse = (id) => {
+    return {
+        type: 'REMOVE_COURSE',
+        payload: id
+    }
+}
+
 export const clearData = () => {
     return {
         type: 'CLEAR_DATA'
