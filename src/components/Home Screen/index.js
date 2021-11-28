@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewCourse, clearData } from '../../actions';
-import { getCourses, setCourses, replacer, clearAll } from '../../utils/AsyncStorageHandler';
+import { clearData } from '../../actions';
+import { getCourses, clearAll } from '../../utils/AsyncStorageHandler';
 import { styles } from './styles';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
 
     const [points, setPoints] = useState({ allPoints: 0, completedPoints: 0 });
     const courses = useSelector(state => state.courses);
@@ -40,25 +40,6 @@ const HomeScreen = () => {
         return { allPoints: allPoints, completedPoints: completedPoints };
     }
 
-    const onAddNewCourse = () => {
-        const newCourse = { name: 'ציון נכשל', grade: 52, weight: 5 };
-        getCourses().then((storage) => {
-            var jsonMap = '';
-            if (storage.size === 0) {
-                const map = new Map().set(newCourse.name, newCourse);
-                var jsonMap = JSON.stringify(map, replacer);
-                setCourses(jsonMap); // update AsyncStorage
-                dispatch(addNewCourse(newCourse)); // update store
-            }
-            else {
-                storage.set(newCourse.name, newCourse);
-                jsonMap = JSON.stringify(storage, replacer);
-                setCourses(jsonMap); // update AsyncStorage
-                dispatch(addNewCourse(newCourse)); // update store
-            }
-        });
-    }
-
     const clear = () => {
         clearAll();
         dispatch(clearData());
@@ -75,17 +56,21 @@ const HomeScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => onAddNewCourse()}><Text>הוסף</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity>
             {coursesArray.map((course) => {
                 return (
-                    <Text key={course.key}>{course.items.name} - {course.items.grade} - {course.items.weight}</Text>
+                    <View key={course.key} style={{ marginTop: 15 }}>
+                        <Text>{course.items.name}</Text>
+                        <Text>ציון: {course.items.grade}</Text>
+                        <Text>משקל: {course.items.weight}</Text>
+                    </View>
                 )
             })}
             <View style={{ marginTop: 15 }}>
                 <Text>ממוצע: {calculateGPA(coursesArray.items)}</Text>
-                <Text>נק"ז שהושלמו: {points.completedPoints}</Text>
-                <Text>סה"כ נק"ז: {points.allPoints}</Text>
+                {/* <Text>נק"ז שהושלמו: {points.completedPoints}</Text>
+                <Text>סה"כ נק"ז: {points.allPoints}</Text> */}
             </View>
         </SafeAreaView>
     )

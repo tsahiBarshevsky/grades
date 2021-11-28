@@ -1,7 +1,10 @@
-export const addNewCourse = (newItem) => {
+export const addNewCourse = (id, newItem) => {
     return {
         type: 'ADD_NEW_COURSE',
-        payload: newItem
+        payload: {
+            newItem: newItem,
+            id: id
+        }
     }
 }
 

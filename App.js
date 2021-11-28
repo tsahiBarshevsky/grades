@@ -6,6 +6,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './src/reducers';
 import HomeScreen from './src/components/Home Screen';
+import InsertionScreen from './src/components/Insertion Screen';
 
 const store = createStore(rootReducer);
 const Stack = createNativeStackNavigator();
@@ -16,6 +17,7 @@ const App = () => {
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="Insertion" component={InsertionScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>

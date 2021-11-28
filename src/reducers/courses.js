@@ -7,10 +7,10 @@ const coursesReducer = (state = INITIAL_STATE, action) => {
         case 'SET_COURSES':
             return action.courses;
         case 'ADD_NEW_COURSE':
-            const newItem = action.payload;
+            const newItem = action.payload.newItem;
             const newMap = update(state, {
                 $add: [
-                    [newItem.name, newItem]
+                    [action.payload.id, newItem]
                 ]
             });
             return newMap;
