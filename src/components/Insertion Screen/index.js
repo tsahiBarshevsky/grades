@@ -17,7 +17,13 @@ const InsertionScreen = ({ navigation }) => {
     const dispatch = useDispatch();
 
     const onAddNewCourse = () => {
-        const newCourse = { name: name, weight: Number(weight), grade: Number(grade), semester: semester, year: year };
+        const newCourse = {
+            name: name,
+            weight: Number(weight),
+            grade: grade ? Number(grade) : null,
+            semester: semester,
+            year: year
+        };
         getCourses().then((storage) => {
             var jsonMap = '';
             const id = uuid.v4();

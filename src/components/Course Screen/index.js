@@ -19,12 +19,10 @@ const CourseScreen = ({ navigation, route }) => {
 
     const onUpdateCourse = () => {
         const updatedCourse = { name: name, weight: Number(weight), grade: Number(grade), semester: semester, year: year };
-
         const temp = new Map(courses);
         const updatedMap = update(temp, { [id]: { $set: updatedCourse } });
         const jsonMap = JSON.stringify(updatedMap, replacer);
         setCourses(jsonMap); // update AsyncStorage
-
         dispatch(updateCourse(id, updatedCourse)); // update store
         navigation.navigate('Home');
     }
