@@ -14,6 +14,11 @@ const coursesReducer = (state = INITIAL_STATE, action) => {
                 ]
             });
             return newMap;
+        case 'UPDATE_COURSE':
+            const key = action.payload.key;
+            const updatedItem = action.payload.updatedItem;
+            const mapAfterUpdate = update(state, { [key]: { $set: updatedItem } });
+            return mapAfterUpdate;
         case 'REMOVE_COURSE':
             const id = action.payload;
             const mapAfterRemove = update(state, { $remove: [id] });

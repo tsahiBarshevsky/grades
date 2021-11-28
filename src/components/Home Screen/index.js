@@ -68,10 +68,16 @@ const HomeScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity>
             {coursesArray.map((course) => {
                 return (
-                    <TouchableOpacity onPress={() => onRemoveCourse(course.key)} key={course.key} style={{ marginTop: 15, backgroundColor: 'lightgreen' }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("Course", { id: course.key })}
+                        onLongPress={() => onRemoveCourse(course.key)}
+                        key={course.key}
+                        style={{ marginTop: 15, backgroundColor: 'lightgreen' }}
+                    >
                         <Text>{course.items.name}</Text>
                         <Text>ציון: {course.items.grade}</Text>
                         <Text>משקל: {course.items.weight}</Text>
+                        <Text>סמסטר {course.items.semester} שנה {course.items.year}</Text>
                     </TouchableOpacity>
                 )
             })}

@@ -8,6 +8,16 @@ export const addNewCourse = (id, newItem) => {
     }
 }
 
+export const updateCourse = (key, updatedItem) => {
+    return {
+        type: 'UPDATE_COURSE',
+        payload: {
+            key: key,
+            updatedItem: updatedItem
+        }
+    }
+}
+
 export const removeCourse = (id) => {
     return {
         type: 'REMOVE_COURSE',
