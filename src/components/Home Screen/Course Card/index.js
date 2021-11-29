@@ -73,6 +73,8 @@ const CourseCard = ({ id, course, }) => {
             ref={swipeableRef}
             renderLeftActions={deleteAction}
             renderRightActions={editAction}
+            onSwipeableLeftOpen={() => onRemoveCourse(id)}
+            onSwipeableRightOpen={() => onEditCourse(id)}
         >
             <View style={styles.container}>
                 <View style={styles.nameAndWeight}>
@@ -81,7 +83,7 @@ const CourseCard = ({ id, course, }) => {
                 </View>
                 <Text>{course.grade}</Text>
             </View>
-        </Swipeable>
+        </Swipeable >
     )
 }
 
