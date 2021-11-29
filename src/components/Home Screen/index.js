@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SwipeListView } from 'react-native-swipe-list-view';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearData, removeCourse } from '../../actions';
-import { getCourses, clearAll, replacer, setCourses } from '../../utils/AsyncStorageHandler';
+import { clearData } from '../../actions';
+import { getCourses, clearAll } from '../../utils/AsyncStorageHandler';
 import CourseCard from './Course Card';
 import { styles } from './styles';
 
@@ -47,19 +46,6 @@ const HomeScreen = ({ navigation }) => {
         return sum;
     }
 
-    const onRemoveCourse = (id) => {
-        const temp = new Map(courses);
-        temp.delete(id);
-        const jsonMap = JSON.stringify(temp, replacer);
-        setCourses(jsonMap); // update AsyncStorage
-        dispatch(removeCourse(id)); // update store
-    }
-
-    const onEditCourse = (id, data, rowMap) => {
-        rowMap[data.item.key].closeRow();
-        navigation.navigate("Course", { id: id });
-    }
-
     const clear = () => {
         clearAll();
         dispatch(clearData());
@@ -87,12 +73,12 @@ const HomeScreen = ({ navigation }) => {
                     <Text>נק"ז שהושלמו</Text>
                 </View>
             </View>
-            {/* <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity> */}
-            <SwipeListView
+            <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity>
+            {/* <SwipeListView
                 data={coursesArray}
-                renderItem={(data, rowMap) => (
+                renderItem={(data) => (
                     <CourseCard course={data.item.items} />
                 )}
                 renderHiddenItem={(data, rowMap) => (
@@ -103,7 +89,16 @@ const HomeScreen = ({ navigation }) => {
                 )}
                 leftOpenValue={75}
                 rightOpenValue={-75}
-            />
+            /> */}
+            {coursesArray.map((course) => {
+                return (
+                    <CourseCard
+                        key={course.key}
+                        id={course.key}
+                        course={course.items}
+                    />
+                )
+            })}
         </SafeAreaView>
     )
 }
