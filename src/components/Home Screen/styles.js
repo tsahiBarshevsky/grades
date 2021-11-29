@@ -25,14 +25,5 @@ export const styles = StyleSheet.create({
         height: 85,
         borderRadius: 5,
         backgroundColor: 'lightgreen'
-    },
-    rowBack: {
-        alignItems: 'center',
-        backgroundColor: '#DDD',
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        borderRadius: 5,
-        marginBottom: 10
     }
 });

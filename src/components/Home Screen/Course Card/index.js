@@ -1,36 +1,3 @@
-// import React from 'react';
-// import { StyleSheet, Text, View } from 'react-native';
-
-// const CourseCard = ({ course }) => {
-//     return (
-//         <View style={styles.container}>
-//             <View style={styles.nameAndWeight}>
-//                 <Text>{course.name}</Text>
-//                 <Text>{course.weight} נק"ז</Text>
-//             </View>
-//             <Text>{course.grade}</Text>
-//         </View>
-//     )
-// }
-
-// export default CourseCard;
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         alignItems: 'center',
-//         backgroundColor: 'lightgreen',
-//         borderRadius: 5,
-//         padding: 10,
-//         marginBottom: 10
-//     },
-//     nameAndWeight: {
-//         justifyContent: 'center',
-//         alignItems: 'flex-start',
-//     }
-// });
-
 import React, { useRef } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
@@ -62,7 +29,6 @@ const CourseCard = ({ id, course, }) => {
     }
 
     const deleteAction = (progress, dragX) => {
-
         const scale = dragX.interpolate({
             inputRange: [0, 100],
             outputRange: [0, 1],
@@ -70,14 +36,19 @@ const CourseCard = ({ id, course, }) => {
         });
 
         return (
-            <TouchableOpacity style={styles.deleteAction} onPress={() => onRemoveCourse(id)}>
-                <Animated.Text style={{ transform: [{ scale }] }}>מחיקה</Animated.Text>
-            </TouchableOpacity>
+            <View style={styles.deleteAction}>
+                <TouchableOpacity onPress={() => onRemoveCourse(id)}>
+                    <Animated.Text
+                        style={{ color: 'white', transform: [{ scale }] }}
+                    >
+                        מחיקה
+                    </Animated.Text>
+                </TouchableOpacity>
+            </View>
         )
     }
 
     const editAction = (progress, dragX) => {
-
         const scale = dragX.interpolate({
             inputRange: [-100, 0],
             outputRange: [1, 0],

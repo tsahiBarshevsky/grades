@@ -76,29 +76,17 @@ const HomeScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity>
-            {/* <SwipeListView
-                data={coursesArray}
-                renderItem={(data) => (
-                    <CourseCard course={data.item.items} />
-                )}
-                renderHiddenItem={(data, rowMap) => (
-                    <View style={styles.rowBack}>
-                        <TouchableOpacity onPress={() => onRemoveCourse(data.item.key)}><Text>מחק</Text></TouchableOpacity>
-                        <TouchableOpacity onPress={() => onEditCourse(data.item.key, data, rowMap)}><Text>ערוך</Text></TouchableOpacity>
-                    </View>
-                )}
-                leftOpenValue={75}
-                rightOpenValue={-75}
-            /> */}
-            {coursesArray.map((course) => {
-                return (
-                    <CourseCard
-                        key={course.key}
-                        id={course.key}
-                        course={course.items}
-                    />
-                )
-            })}
+            <ScrollView>
+                {coursesArray.map((course) => {
+                    return (
+                        <CourseCard
+                            key={course.key}
+                            id={course.key}
+                            course={course.items}
+                        />
+                    )
+                })}
+            </ScrollView>
         </SafeAreaView>
     )
 }
