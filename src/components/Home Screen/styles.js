@@ -5,6 +5,8 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f5f5f5',
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        paddingHorizontal: 15,
+        paddingBottom: 10
     },
     header: {
         display: 'flex',
@@ -12,20 +14,25 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 10,
-        paddingHorizontal: 15,
         marginBottom: 10
     },
-    stat: {
+    statBox: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         width: 85,
         height: 85,
+        borderRadius: 5,
         backgroundColor: 'lightgreen'
     },
-    scrollView: {
-        paddingVertical: 5,
-        paddingHorizontal: 15
+    rowBack: {
+        alignItems: 'center',
+        backgroundColor: '#DDD',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderRadius: 5,
+        marginBottom: 10
     }
 });

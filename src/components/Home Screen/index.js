@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearData, removeCourse } from '../../actions';
 import { getCourses, clearAll, replacer, setCourses } from '../../utils/AsyncStorageHandler';
+import CourseCard from './Course Card';
 import { styles } from './styles';
 
 const HomeScreen = ({ navigation }) => {
@@ -53,6 +55,11 @@ const HomeScreen = ({ navigation }) => {
         dispatch(removeCourse(id)); // update store
     }
 
+    const onEditCourse = (id, data, rowMap) => {
+        rowMap[data.item.key].closeRow();
+        navigation.navigate("Course", { id: id });
+    }
+
     const clear = () => {
         clearAll();
         dispatch(clearData());
@@ -67,39 +74,36 @@ const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <View style={styles.stat}>
+                <View style={styles.statBox}>
                     <Text>{calculateGPA()}</Text>
                     <Text>ממוצע</Text>
                 </View>
-                <View style={styles.stat}>
+                <View style={styles.statBox}>
                     <Text>{calculateAllPoints()}</Text>
                     <Text>סה"כ נק"ז</Text>
                 </View>
-                <View style={styles.stat}>
+                <View style={styles.statBox}>
                     <Text>{calculateCompletedPoints()}</Text>
                     <Text>נק"ז שהושלמו</Text>
                 </View>
             </View>
-            <ScrollView style={styles.scrollView}>
-                <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity>
-                {coursesArray.map((course) => {
-                    return (
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("Course", { id: course.key })}
-                            onLongPress={() => onRemoveCourse(course.key)}
-                            key={course.key}
-                            style={{ marginTop: 15, backgroundColor: 'lightgreen' }}
-                        >
-                            <Text>{course.items.name}</Text>
-                            <Text>ציון: {course.items.grade}</Text>
-                            <Text>משקל: {course.items.weight}</Text>
-                            <Text>סמסטר {course.items.semester} שנה {course.items.year}</Text>
-                        </TouchableOpacity>
-                    )
-                })}
-            </ScrollView>
+            {/* <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity> */}
+            <SwipeListView
+                data={coursesArray}
+                renderItem={(data, rowMap) => (
+                    <CourseCard course={data.item.items} />
+                )}
+                renderHiddenItem={(data, rowMap) => (
+                    <View style={styles.rowBack}>
+                        <TouchableOpacity onPress={() => onRemoveCourse(data.item.key)}><Text>מחק</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => onEditCourse(data.item.key, data, rowMap)}><Text>ערוך</Text></TouchableOpacity>
+                    </View>
+                )}
+                leftOpenValue={75}
+                rightOpenValue={-75}
+            />
         </SafeAreaView>
     )
 }
