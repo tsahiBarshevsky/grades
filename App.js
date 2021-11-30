@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { I18nManager } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './src/reducers';
@@ -12,9 +12,10 @@ import CourseScreen from './src/components/Course Screen';
 
 I18nManager.forceRTL(true);
 const store = createStore(rootReducer);
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const App = () => {
+
     return (
         <Provider store={store}>
             <NavigationContainer>
