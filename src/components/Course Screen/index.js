@@ -12,7 +12,7 @@ const CourseScreen = ({ navigation, route }) => {
     const [weight, setWeight] = useState(null);
     const [grade, setGrade] = useState(null);
     const [semester, setSemester] = useState('א');
-    const [year, setYear] = useState('א');
+    const [year, setYear] = useState('');
     const courses = useSelector(state => state.courses);
     const dispatch = useDispatch();
     const { id } = route.params;
@@ -32,6 +32,7 @@ const CourseScreen = ({ navigation, route }) => {
         setName(course.name);
         setWeight(course.weight);
         setGrade(course.grade);
+        setYear(course.year);
     }, []);
 
     return (

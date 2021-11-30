@@ -80,6 +80,7 @@ const CourseCard = ({ id, course, }) => {
                 <View style={styles.nameAndWeight}>
                     <Text>{course.name}</Text>
                     <Text>{course.weight} נק"ז</Text>
+                    <Text>{course.year}</Text>
                 </View>
                 <Text>{course.grade}</Text>
             </View>

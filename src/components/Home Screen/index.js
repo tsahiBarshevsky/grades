@@ -11,7 +11,15 @@ const HomeScreen = ({ navigation }) => {
 
     const courses = useSelector(state => state.courses);
     const dispatch = useDispatch();
+    // Convert courses map into array
     const coursesArray = Array.from(courses, ([key, items]) => ({ key, items }));
+    // Group courses array by year
+    const groups = coursesArray.reduce((group, course) => {
+        if (!group[course.items.year])
+            group[course.items.year] = [];
+        group[course.items.year].push(course);
+        return group;
+    }, {});
 
     const calculateGPA = () => {
         if (courses.size === 0)
@@ -62,7 +70,7 @@ const HomeScreen = ({ navigation }) => {
             <View style={styles.header}>
                 <View style={styles.statBox}>
                     <Text>{calculateGPA()}</Text>
-                    <Text>ממוצע</Text>
+                    <Text>ממוצע מצטבר</Text>
                 </View>
                 <View style={styles.statBox}>
                     <Text>{calculateAllPoints()}</Text>
@@ -77,13 +85,22 @@ const HomeScreen = ({ navigation }) => {
             <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity>
             <ScrollView>
-                {coursesArray.map((course) => {
+                {Object.keys(groups).map((year, index) => {
                     return (
-                        <CourseCard
-                            key={course.key}
-                            id={course.key}
-                            course={course.items}
-                        />
+                        <View key={index} style={styles.yearContainer}>
+                            <View style={styles.yearTitle}>
+                                <Text>{year}</Text>
+                            </View>
+                            {groups[year].map((course) => {
+                                return (
+                                    <CourseCard
+                                        key={course.key}
+                                        id={course.key}
+                                        course={course.items}
+                                    />
+                                )
+                            })}
+                        </View>
                     )
                 })}
             </ScrollView>

@@ -13,7 +13,7 @@ const InsertionScreen = ({ navigation }) => {
     const [weight, setWeight] = useState(null);
     const [grade, setGrade] = useState(null);
     const [semester, setSemester] = useState('א');
-    const [year, setYear] = useState('א');
+    const [year, setYear] = useState('');
     const dispatch = useDispatch();
 
     const onAddNewCourse = () => {
@@ -63,6 +63,12 @@ const InsertionScreen = ({ navigation }) => {
                 placeholder='ציון'
                 keyboardType="number-pad"
             />
+            <TextInput
+                value={year ? year.toString() : ''}
+                onChangeText={setYear}
+                placeholder='שנה'
+                keyboardType="number-pad"
+            />
             <Picker
                 selectedValue={semester}
                 style={{ height: 50, width: 150 }}
@@ -72,7 +78,7 @@ const InsertionScreen = ({ navigation }) => {
                 <Picker.Item label="ב" value="ב" />
                 <Picker.Item label="קיץ" value="קיץ" />
             </Picker>
-            <Picker
+            {/* <Picker
                 selectedValue={year}
                 style={{ height: 50, width: 150 }}
                 onValueChange={(itemValue, itemIndex) => setYear(itemValue)}
@@ -81,7 +87,7 @@ const InsertionScreen = ({ navigation }) => {
                 <Picker.Item label="ב" value="ב" />
                 <Picker.Item label="ג" value="ג" />
                 <Picker.Item label="ד" value="ד" />
-            </Picker>
+            </Picker> */}
             <TouchableOpacity onPress={() => onAddNewCourse()}>
                 <Text>הוסף</Text>
             </TouchableOpacity>

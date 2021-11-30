@@ -1,4 +1,4 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet, Platform, StatusBar, Dimensions } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
@@ -25,5 +25,12 @@ export const styles = StyleSheet.create({
         height: 85,
         borderRadius: 5,
         backgroundColor: 'lightgreen'
+    },
+    yearContainer: {
+        marginBottom: 10
+    },
+    yearTitle: {
+        alignItems: 'center',
+        marginBottom: 5
     }
 });
