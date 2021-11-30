@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import Swiper from 'react-native-swiper';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearData } from '../../actions';
 import { getCourses, clearAll } from '../../utils/AsyncStorageHandler';
@@ -97,27 +98,29 @@ const HomeScreen = ({ navigation }) => {
             {/* <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity> */}
-            <ScrollView>
+            <Swiper loop={false} showsPagination={false}>
                 {Object.keys(groups).map((year, index) => {
                     return (
-                        <View key={index} style={styles.yearContainer}>
-                            <View style={styles.yearTitle}>
-                                <Text>{year}</Text>
-                            </View>
-                            {groups[year].sort(sortBySemesters).map((course) => {
-                                return (
-                                    <CourseCard
-                                        key={course.key}
-                                        id={course.key}
-                                        course={course.items}
-                                    />
-                                )
-                            })}
-                            <Text>ממוצע שנתי {calculateGPA(groups[year], 'annual')}</Text>
+                        <View key={index}>
+                            <ScrollView style={styles.yearContainer}>
+                                <View style={styles.yearTitle}>
+                                    <Text>{year}</Text>
+                                </View>
+                                {groups[year].sort(sortBySemesters).map((course) => {
+                                    return (
+                                        <CourseCard
+                                            key={course.key}
+                                            id={course.key}
+                                            course={course.items}
+                                        />
+                                    )
+                                })}
+                                <Text>ממוצע שנתי {calculateGPA(groups[year], 'annual')}</Text>
+                            </ScrollView>
                         </View>
                     )
                 })}
-            </ScrollView>
+            </Swiper>
         </SafeAreaView>
     )
 }

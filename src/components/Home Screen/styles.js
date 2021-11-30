@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f5f5f5',
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-        paddingHorizontal: 15,
+        paddingHorizontal: 10,
         paddingBottom: 10
     },
     header: {
@@ -14,7 +14,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 10,
-        marginBottom: 10
+        marginBottom: 20,
+        paddingHorizontal: 5
     },
     statBox: {
         display: 'flex',
@@ -27,8 +28,7 @@ export const styles = StyleSheet.create({
         backgroundColor: 'lightgreen'
     },
     yearContainer: {
-        marginBottom: 20,
-        borderRadius: 5
+        paddingHorizontal: 5
     },
     yearTitle: {
         width: 80,
