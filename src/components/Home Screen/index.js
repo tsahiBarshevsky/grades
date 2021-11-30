@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearData } from '../../actions';
 import { getCourses, clearAll } from '../../utils/AsyncStorageHandler';
@@ -21,18 +20,28 @@ const HomeScreen = ({ navigation }) => {
         return group;
     }, {});
 
-    const calculateGPA = () => {
-        if (courses.size === 0)
+    const calculateGPA = (map, source) => {
+        if (map.size === 0)
             return 0;
         var weighting = 0;
         var weights = 0;
-        courses.forEach((course) => {
-            if (course.grade) {
-                weighting += (course.grade * course.weight);
-                weights += course.weight;
-            }
-        });
-        return Number(weighting / weights).toFixed(2);
+        if (source === 'general') {
+            map.forEach((course) => {
+                if (course.grade) {
+                    weighting += (course.grade * course.weight);
+                    weights += course.weight;
+                }
+            });
+        }
+        else {
+            map.forEach((course) => {
+                if (course.items.grade) {
+                    weighting += (course.items.grade * course.items.weight);
+                    weights += course.items.weight;
+                }
+            });
+        }
+        return weighting !== 0 && weights !== 0 ? Number(weighting / weights).toFixed(2) : 0;
     }
 
     const calculateAllPoints = () => {
@@ -59,6 +68,10 @@ const HomeScreen = ({ navigation }) => {
         dispatch(clearData());
     }
 
+    const sortBySemesters = (a, b) => {
+        return (a.items.semester > b.items.semester) ? 1 : ((b.items.semester > a.items.semester) ? -1 : 0);
+    }
+
     useEffect(() => {
         getCourses().then((res) => {
             dispatch({ type: 'SET_COURSES', courses: res });
@@ -69,21 +82,21 @@ const HomeScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.statBox}>
-                    <Text>{calculateGPA()}</Text>
+                    <Text>{calculateGPA(courses, 'general')}</Text>
                     <Text>ממוצע מצטבר</Text>
-                </View>
-                <View style={styles.statBox}>
-                    <Text>{calculateAllPoints()}</Text>
-                    <Text>סה"כ נק"ז</Text>
                 </View>
                 <View style={styles.statBox}>
                     <Text>{calculateCompletedPoints()}</Text>
                     <Text>נק"ז שהושלמו</Text>
                 </View>
+                <View style={styles.statBox}>
+                    <Text>{calculateAllPoints()}</Text>
+                    <Text>סה"כ נק"ז</Text>
+                </View>
             </View>
-            <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
+            {/* <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity> */}
             <ScrollView>
                 {Object.keys(groups).map((year, index) => {
                     return (
@@ -91,7 +104,7 @@ const HomeScreen = ({ navigation }) => {
                             <View style={styles.yearTitle}>
                                 <Text>{year}</Text>
                             </View>
-                            {groups[year].map((course) => {
+                            {groups[year].sort(sortBySemesters).map((course) => {
                                 return (
                                     <CourseCard
                                         key={course.key}
@@ -100,6 +113,7 @@ const HomeScreen = ({ navigation }) => {
                                     />
                                 )
                             })}
+                            <Text>ממוצע שנתי {calculateGPA(groups[year], 'annual')}</Text>
                         </View>
                     )
                 })}

@@ -32,6 +32,7 @@ const CourseScreen = ({ navigation, route }) => {
         setName(course.name);
         setWeight(course.weight);
         setGrade(course.grade);
+        setSemester(course.semester);
         setYear(course.year);
     }, []);
 

@@ -27,10 +27,16 @@ export const styles = StyleSheet.create({
         backgroundColor: 'lightgreen'
     },
     yearContainer: {
-        marginBottom: 10
+        marginBottom: 20,
+        borderRadius: 5
     },
     yearTitle: {
+        width: 80,
         alignItems: 'center',
-        marginBottom: 5
+        alignSelf: 'center',
+        backgroundColor: 'lightgreen',
+        borderRadius: 40,
+        padding: 5,
+        marginBottom: 10
     }
 });
