@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import Swiper from 'react-native-swiper';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearData } from '../../actions';
@@ -81,18 +82,19 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar style="light" />
             <View style={styles.header}>
                 <View style={styles.statBox}>
-                    <Text>{calculateGPA(courses, 'general')}</Text>
-                    <Text>ממוצע מצטבר</Text>
+                    <Text style={styles.text}>{calculateGPA(courses, 'general')}</Text>
+                    <Text style={styles.text}>ממוצע מצטבר</Text>
                 </View>
                 <View style={styles.statBox}>
-                    <Text>{calculateCompletedPoints()}</Text>
-                    <Text>נק"ז שהושלמו</Text>
+                    <Text style={styles.text}>{calculateCompletedPoints()}</Text>
+                    <Text style={styles.text}>נק"ז שהושלמו</Text>
                 </View>
                 <View style={styles.statBox}>
-                    <Text>{calculateAllPoints()}</Text>
-                    <Text>סה"כ נק"ז</Text>
+                    <Text style={styles.text}>{calculateAllPoints()}</Text>
+                    <Text style={styles.text}>סה"כ נק"ז</Text>
                 </View>
             </View>
             {/* <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
@@ -103,8 +105,8 @@ const HomeScreen = ({ navigation }) => {
                     return (
                         <View key={index}>
                             <ScrollView style={styles.yearContainer}>
-                                <View style={styles.yearTitle}>
-                                    <Text>{year}</Text>
+                                <View style={styles.titleBox}>
+                                    <Text style={styles.title}>{year}</Text>
                                 </View>
                                 {groups[year].sort(sortBySemesters).map((course) => {
                                     return (
@@ -115,7 +117,9 @@ const HomeScreen = ({ navigation }) => {
                                         />
                                     )
                                 })}
-                                <Text>ממוצע שנתי {calculateGPA(groups[year], 'annual')}</Text>
+                                <Text style={styles.text}>
+                                    ממוצע שנתי {calculateGPA(groups[year], 'annual')}
+                                </Text>
                             </ScrollView>
                         </View>
                     )

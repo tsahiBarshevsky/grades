@@ -78,11 +78,11 @@ const CourseCard = ({ id, course, }) => {
         >
             <View style={styles.container}>
                 <View style={styles.nameAndWeight}>
-                    <Text>{course.name}</Text>
-                    <Text>{course.weight} נק"ז</Text>
-                    <Text>סמס {course.semester}</Text>
+                    <Text style={styles.text}>{course.name}</Text>
+                    <Text style={styles.text}>{course.weight} נק"ז</Text>
+                    <Text style={styles.text}>סמס {course.semester}</Text>
                 </View>
-                <Text>{course.grade}</Text>
+                <Text style={styles.text}>{course.grade}</Text>
             </View>
         </Swipeable >
     )
@@ -95,14 +95,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: 'lightgreen',
+        backgroundColor: '#373737',
         borderRadius: 5,
-        padding: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
         marginBottom: 10
     },
     nameAndWeight: {
         justifyContent: 'center',
         alignItems: 'flex-start',
+    },
+    text: {
+        color: 'white'
     },
     deleteAction: {
         backgroundColor: '#dd2c00',
