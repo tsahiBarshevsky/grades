@@ -63,7 +63,7 @@ const InsertionScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
-            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: 15 }}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 15 }}>
                 <KeyboardAvoidingView
                     enabled
                     behavior={Platform.OS === 'ios' ? 'padding' : null}
@@ -74,9 +74,11 @@ const InsertionScreen = ({ navigation }) => {
                             onChangeText={setName}
                             placeholder="שם הקורס..."
                             placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                            selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
                             returnKeyType='next'
                             onSubmitEditing={() => weightRef.current.focus()}
                             style={[styles.textInput, styles[`textInput${theme}`]]}
+                            blurOnSubmit={false}
                         />
                     </View>
                     <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
@@ -86,10 +88,12 @@ const InsertionScreen = ({ navigation }) => {
                             keyboardType="number-pad"
                             placeholder='נק"ז...'
                             placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                            selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
                             ref={weightRef}
                             returnKeyType='next'
                             onSubmitEditing={() => gradeRef.current.focus()}
                             style={[styles.textInput, styles[`textInput${theme}`]]}
+                            blurOnSubmit={false}
                         />
                     </View>
                     <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
@@ -99,10 +103,12 @@ const InsertionScreen = ({ navigation }) => {
                             keyboardType="number-pad"
                             placeholder='ציון... (ניתן להשאיר ריק)'
                             placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                            selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
                             ref={gradeRef}
                             returnKeyType='next'
                             onSubmitEditing={() => yearRef.current.focus()}
                             style={[styles.textInput, styles[`textInput${theme}`]]}
+                            blurOnSubmit={false}
                         />
                     </View>
                     <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
@@ -112,6 +118,7 @@ const InsertionScreen = ({ navigation }) => {
                             keyboardType="number-pad"
                             placeholder='שנה...'
                             placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                            selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
                             ref={yearRef}
                             style={[styles.textInput, styles[`textInput${theme}`]]}
                         />

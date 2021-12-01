@@ -29,6 +29,7 @@ const App = () => {
                 <NavigationContainer>
                     <Tab.Navigator
                         screenOptions={{
+                            tabBarHideOnKeyboard: true,
                             headerShown: false,
                             tabBarShowLabel: false,
                             tabBarStyle: {
@@ -37,7 +38,6 @@ const App = () => {
                                 height: 55
                             }
                         }}
-
                     >
                         <Tab.Screen
                             name="StackNavigator"
