@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef } from 'react';
-import { View, TouchableOpacity, Text, SafeAreaView, TextInput, Keyboard } from 'react-native';
+import { View, TouchableOpacity, Text, SafeAreaView, TextInput, Keyboard, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 import uuid from 'react-native-uuid';
 import { useDispatch } from 'react-redux';
@@ -63,74 +63,81 @@ const InsertionScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
-            <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
-                <TextInput
-                    value={name}
-                    onChangeText={setName}
-                    placeholder="שם הקורס..."
-                    placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                    returnKeyType='next'
-                    onSubmitEditing={() => weightRef.current.focus()}
-                    style={[styles.textInput, styles[`textInput${theme}`]]}
-                />
-            </View>
-            <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
-                <TextInput
-                    value={weight ? weight.toString() : ''}
-                    onChangeText={setWeight}
-                    keyboardType="number-pad"
-                    placeholder='נק"ז...'
-                    placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                    ref={weightRef}
-                    returnKeyType='next'
-                    onSubmitEditing={() => gradeRef.current.focus()}
-                    style={[styles.textInput, styles[`textInput${theme}`]]}
-                />
-            </View>
-            <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
-                <TextInput
-                    value={grade ? grade.toString() : ''}
-                    onChangeText={setGrade}
-                    keyboardType="number-pad"
-                    placeholder='ציון... (ניתן להשאיר ריק)'
-                    placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                    ref={gradeRef}
-                    returnKeyType='next'
-                    onSubmitEditing={() => yearRef.current.focus()}
-                    style={[styles.textInput, styles[`textInput${theme}`]]}
-                />
-            </View>
-            <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
-                <TextInput
-                    value={year ? year.toString() : ''}
-                    onChangeText={setYear}
-                    keyboardType="number-pad"
-                    placeholder='שנה...'
-                    placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                    ref={yearRef}
-                    style={[styles.textInput, styles[`textInput${theme}`]]}
-                />
-            </View>
-            <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>סמסטר</Text>
-            <RadioForm
-                radio_props={radio_props}
-                initial={0}
-                onPress={(value) => setSemester(value)}
-                buttonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
-                buttonSize={12}
-                selectedButtonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
-                selectedLabelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
-                labelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
-                labelStyle={{ marginLeft: 10, fontSize: 16 }}
-                style={styles.radioForm}
-            />
-            <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => onAddNewCourse()}
-                style={[styles.button, styles[`button${theme}`]]}
-            >
-                <Text style={styles[`text${theme}`]}>הוספה</Text>
-            </TouchableOpacity>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: 15 }}>
+                <KeyboardAvoidingView
+                    enabled
+                    behavior={Platform.OS === 'ios' ? 'padding' : null}
+                >
+                    <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                        <TextInput
+                            value={name}
+                            onChangeText={setName}
+                            placeholder="שם הקורס..."
+                            placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                            returnKeyType='next'
+                            onSubmitEditing={() => weightRef.current.focus()}
+                            style={[styles.textInput, styles[`textInput${theme}`]]}
+                        />
+                    </View>
+                    <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                        <TextInput
+                            value={weight ? weight.toString() : ''}
+                            onChangeText={setWeight}
+                            keyboardType="number-pad"
+                            placeholder='נק"ז...'
+                            placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                            ref={weightRef}
+                            returnKeyType='next'
+                            onSubmitEditing={() => gradeRef.current.focus()}
+                            style={[styles.textInput, styles[`textInput${theme}`]]}
+                        />
+                    </View>
+                    <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                        <TextInput
+                            value={grade ? grade.toString() : ''}
+                            onChangeText={setGrade}
+                            keyboardType="number-pad"
+                            placeholder='ציון... (ניתן להשאיר ריק)'
+                            placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                            ref={gradeRef}
+                            returnKeyType='next'
+                            onSubmitEditing={() => yearRef.current.focus()}
+                            style={[styles.textInput, styles[`textInput${theme}`]]}
+                        />
+                    </View>
+                    <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                        <TextInput
+                            value={year ? year.toString() : ''}
+                            onChangeText={setYear}
+                            keyboardType="number-pad"
+                            placeholder='שנה...'
+                            placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                            ref={yearRef}
+                            style={[styles.textInput, styles[`textInput${theme}`]]}
+                        />
+                    </View>
+                    <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>סמסטר</Text>
+                    <RadioForm
+                        radio_props={radio_props}
+                        initial={0}
+                        onPress={(value) => setSemester(value)}
+                        buttonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
+                        buttonSize={12}
+                        selectedButtonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
+                        selectedLabelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
+                        labelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
+                        labelStyle={{ marginLeft: 10, fontSize: 16 }}
+                        style={styles.radioForm}
+                    />
+                    <TouchableOpacity
+                        activeOpacity={0.7}
+                        onPress={() => onAddNewCourse()}
+                        style={[styles.button, styles[`button${theme}`]]}
+                    >
+                        <Text style={styles[`text${theme}`]}>הוספה</Text>
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
+            </ScrollView>
         </SafeAreaView>
     )
 }
