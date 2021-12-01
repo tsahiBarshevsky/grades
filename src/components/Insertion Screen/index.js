@@ -16,6 +16,14 @@ const InsertionScreen = ({ navigation }) => {
     const [year, setYear] = useState('');
     const dispatch = useDispatch();
 
+    const clearForm = () => {
+        setName('');
+        setWeight(null);
+        setGrade(null);
+        setSemester('א');
+        setYear('');
+    }
+
     const onAddNewCourse = () => {
         const newCourse = {
             name: name,
@@ -39,7 +47,8 @@ const InsertionScreen = ({ navigation }) => {
                 setCourses(jsonMap); // update AsyncStorage
                 dispatch(addNewCourse(id, newCourse)); // update store
             }
-            navigation.navigate('Home');
+            clearForm();
+            navigation.navigate('StackNavigator');
         });
     }
 
@@ -90,6 +99,9 @@ const InsertionScreen = ({ navigation }) => {
             </Picker> */}
             <TouchableOpacity onPress={() => onAddNewCourse()}>
                 <Text>הוסף</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => clearForm()}>
+                <Text>ניקוי</Text>
             </TouchableOpacity>
         </SafeAreaView>
     )
