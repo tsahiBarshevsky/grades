@@ -1,26 +1,32 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, SafeAreaView, TextInput } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import React, { useState, useContext, useRef } from 'react';
+import { View, TouchableOpacity, Text, SafeAreaView, TextInput, Keyboard } from 'react-native';
+import RadioForm from 'react-native-simple-radio-button';
 import uuid from 'react-native-uuid';
 import { useDispatch } from 'react-redux';
 import { getCourses, setCourses, replacer } from '../../utils/AsyncStorageHandler';
+import { ThemeContext } from '../../utils/ThemeManager';
 import { addNewCourse } from '../../actions';
 import { styles } from './styles';
+import { darkTheme, lightTheme } from '../../utils/Themes';
 
 const InsertionScreen = ({ navigation }) => {
 
     const [name, setName] = useState('');
     const [weight, setWeight] = useState(null);
     const [grade, setGrade] = useState(null);
-    const [semester, setSemester] = useState('א');
+    const [semester, setSemester] = useState("א'");
     const [year, setYear] = useState('');
+    const weightRef = useRef(null);
+    const gradeRef = useRef(null);
+    const yearRef = useRef(null);
     const dispatch = useDispatch();
+    const { theme } = useContext(ThemeContext);
 
     const clearForm = () => {
         setName('');
         setWeight(null);
         setGrade(null);
-        setSemester('א');
+        setSemester("א'");
         setYear('');
     }
 
@@ -48,63 +54,91 @@ const InsertionScreen = ({ navigation }) => {
                 dispatch(addNewCourse(id, newCourse)); // update store
             }
             clearForm();
-            navigation.navigate('StackNavigator');
+            Keyboard.dismiss();
+            setTimeout(() => {
+                navigation.navigate('StackNavigator');
+            }, 1000);
         });
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Text>הוספת קורס</Text>
-            <TextInput
-                value={name}
-                onChangeText={setName}
-                placeholder="שם הקורס"
+        <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
+            <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                <TextInput
+                    value={name}
+                    onChangeText={setName}
+                    placeholder="שם הקורס..."
+                    placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                    returnKeyType='next'
+                    onSubmitEditing={() => weightRef.current.focus()}
+                    style={[styles.textInput, styles[`textInput${theme}`]]}
+                />
+            </View>
+            <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                <TextInput
+                    value={weight ? weight.toString() : ''}
+                    onChangeText={setWeight}
+                    keyboardType="number-pad"
+                    placeholder='נק"ז...'
+                    placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                    ref={weightRef}
+                    returnKeyType='next'
+                    onSubmitEditing={() => gradeRef.current.focus()}
+                    style={[styles.textInput, styles[`textInput${theme}`]]}
+                />
+            </View>
+            <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                <TextInput
+                    value={grade ? grade.toString() : ''}
+                    onChangeText={setGrade}
+                    keyboardType="number-pad"
+                    placeholder='ציון... (ניתן להשאיר ריק)'
+                    placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                    ref={gradeRef}
+                    returnKeyType='next'
+                    onSubmitEditing={() => yearRef.current.focus()}
+                    style={[styles.textInput, styles[`textInput${theme}`]]}
+                />
+            </View>
+            <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                <TextInput
+                    value={year ? year.toString() : ''}
+                    onChangeText={setYear}
+                    keyboardType="number-pad"
+                    placeholder='שנה...'
+                    placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                    ref={yearRef}
+                    style={[styles.textInput, styles[`textInput${theme}`]]}
+                />
+            </View>
+            <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>סמסטר</Text>
+            <RadioForm
+                radio_props={radio_props}
+                initial={0}
+                onPress={(value) => setSemester(value)}
+                buttonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
+                buttonSize={12}
+                selectedButtonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
+                selectedLabelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
+                labelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
+                labelStyle={{ marginLeft: 10, fontSize: 16 }}
+                style={styles.radioForm}
             />
-            <TextInput
-                value={weight ? weight.toString() : ''}
-                onChangeText={setWeight}
-                placeholder='נק"ז'
-                keyboardType="number-pad"
-            />
-            <TextInput
-                value={grade ? grade.toString() : ''}
-                onChangeText={setGrade}
-                placeholder='ציון'
-                keyboardType="number-pad"
-            />
-            <TextInput
-                value={year ? year.toString() : ''}
-                onChangeText={setYear}
-                placeholder='שנה'
-                keyboardType="number-pad"
-            />
-            <Picker
-                selectedValue={semester}
-                style={{ height: 50, width: 150 }}
-                onValueChange={(itemValue, itemIndex) => setSemester(itemValue)}
+            <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => onAddNewCourse()}
+                style={[styles.button, styles[`button${theme}`]]}
             >
-                <Picker.Item label="א" value="א" />
-                <Picker.Item label="ב" value="ב" />
-                <Picker.Item label="קיץ" value="קיץ" />
-            </Picker>
-            {/* <Picker
-                selectedValue={year}
-                style={{ height: 50, width: 150 }}
-                onValueChange={(itemValue, itemIndex) => setYear(itemValue)}
-            >
-                <Picker.Item label="א" value="א" />
-                <Picker.Item label="ב" value="ב" />
-                <Picker.Item label="ג" value="ג" />
-                <Picker.Item label="ד" value="ד" />
-            </Picker> */}
-            <TouchableOpacity onPress={() => onAddNewCourse()}>
-                <Text>הוסף</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => clearForm()}>
-                <Text>ניקוי</Text>
+                <Text style={styles[`text${theme}`]}>הוספה</Text>
             </TouchableOpacity>
         </SafeAreaView>
     )
 }
+
+var radio_props = [
+    { label: "א'", value: "א'" },
+    { label: "ב'", value: "ב'" },
+    { label: "ג'", value: "ג'" },
+];
 
 export default InsertionScreen;
