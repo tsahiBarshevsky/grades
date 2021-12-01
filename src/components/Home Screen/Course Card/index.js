@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useEffect, useState } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -8,13 +8,27 @@ import { ThemeContext } from '../../../utils/ThemeManager';
 import { darkTheme, lightTheme } from "../../../utils/Themes";
 import { removeCourse } from '../../../actions';
 
-const CourseCard = ({ id, course, }) => {
+const CourseCard = ({ id, course }) => {
 
     const { theme } = useContext(ThemeContext);
+    const [color, setColor] = useState('');
     const swipeableRef = useRef(null);
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const courses = useSelector(state => state.courses);
+
+    const matchColors = () => {
+        switch (true) {
+            case (course.grade >= 0 && course.grade < 59):
+                return 'red';
+            case (course.grade >= 60 && course.grade < 79):
+                return 'orange';
+            case (course.grade >= 80 && course.grade < 89):
+                return 'yellow';
+            default:
+                return 'green';
+        }
+    }
 
     const onEditCourse = () => {
         navigation.navigate("Course", { id: id });
@@ -51,6 +65,10 @@ const CourseCard = ({ id, course, }) => {
         )
     }
 
+    useEffect(() => {
+        setColor(matchColors());
+    }, []);
+
     const editAction = (progress, dragX) => {
         const scale = dragX.interpolate({
             inputRange: [-100, 0],
@@ -80,12 +98,15 @@ const CourseCard = ({ id, course, }) => {
             onSwipeableRightOpen={() => onEditCourse(id)}
         >
             <View style={[styles.container, styles[`container${theme}`]]}>
-                <View style={styles.nameAndWeight}>
-                    <Text style={styles[`text${theme}`]}>{course.name}</Text>
-                    <Text style={styles[`text${theme}`]}>{course.weight} נק"ז</Text>
-                    <Text style={styles[`text${theme}`]}>סמס {course.semester}</Text>
+                <View style={[styles.line, styles[`${color}${theme}`]]} />
+                <View style={styles.data}>
+                    <View style={styles.nameAndWeight}>
+                        <Text style={styles[`text${theme}`]}>{course.name}</Text>
+                        <Text style={styles[`text${theme}`]}>{course.weight} נק"ז</Text>
+                        <Text style={styles[`text${theme}`]}>סמסטר {course.semester}</Text>
+                    </View>
+                    <Text style={styles[`text${theme}`]}>{course.grade}</Text>
                 </View>
-                <Text style={styles[`text${theme}`]}>{course.grade}</Text>
             </View>
         </Swipeable >
     )
@@ -95,12 +116,13 @@ export default CourseCard;
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        // paddingVertical: 10,
+        // paddingHorizontal: 15,
         marginBottom: 10
     },
     containerlight: {
@@ -108,6 +130,45 @@ const styles = StyleSheet.create({
     },
     containerdark: {
         backgroundColor: darkTheme.boxes
+    },
+    line: {
+        width: 7,
+        height: '100%',
+        borderTopLeftRadius: 5,
+        borderBottomLeftRadius: 5
+    },
+    redlight: {
+        backgroundColor: lightTheme.red
+    },
+    reddark: {
+        backgroundColor: darkTheme.red
+    },
+    orangelight: {
+        backgroundColor: lightTheme.orange
+    },
+    orangedark: {
+        backgroundColor: darkTheme.orange
+    },
+    yellowlight: {
+        backgroundColor: lightTheme.yellow
+    },
+    yellowdark: {
+        backgroundColor: darkTheme.yellow
+    },
+    greenlight: {
+        backgroundColor: lightTheme.green
+    },
+    greendark: {
+        backgroundColor: darkTheme.green
+    },
+    data: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 10,
+        paddingLeft: 12,
+        paddingRight: 20
     },
     nameAndWeight: {
         justifyContent: 'center',

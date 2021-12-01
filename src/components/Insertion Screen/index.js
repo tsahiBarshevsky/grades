@@ -53,9 +53,9 @@ const InsertionScreen = ({ navigation }) => {
                 setCourses(jsonMap); // update AsyncStorage
                 dispatch(addNewCourse(id, newCourse)); // update store
             }
-            clearForm();
             Keyboard.dismiss();
             setTimeout(() => {
+                clearForm();
                 navigation.navigate('StackNavigator');
             }, 1000);
         });
