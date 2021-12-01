@@ -1,13 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { replacer, setCourses } from '../../../utils/AsyncStorageHandler';
+import { ThemeContext } from '../../../utils/ThemeManager';
+import { darkTheme, lightTheme } from "../../../utils/Themes";
 import { removeCourse } from '../../../actions';
 
 const CourseCard = ({ id, course, }) => {
 
+    const { theme } = useContext(ThemeContext);
     const swipeableRef = useRef(null);
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -76,13 +79,13 @@ const CourseCard = ({ id, course, }) => {
             onSwipeableLeftOpen={() => onRemoveCourse(id)}
             onSwipeableRightOpen={() => onEditCourse(id)}
         >
-            <View style={styles.container}>
+            <View style={[styles.container, styles[`container${theme}`]]}>
                 <View style={styles.nameAndWeight}>
-                    <Text style={styles.text}>{course.name}</Text>
-                    <Text style={styles.text}>{course.weight} נק"ז</Text>
-                    <Text style={styles.text}>סמס {course.semester}</Text>
+                    <Text style={styles[`text${theme}`]}>{course.name}</Text>
+                    <Text style={styles[`text${theme}`]}>{course.weight} נק"ז</Text>
+                    <Text style={styles[`text${theme}`]}>סמס {course.semester}</Text>
                 </View>
-                <Text style={styles.text}>{course.grade}</Text>
+                <Text style={styles[`text${theme}`]}>{course.grade}</Text>
             </View>
         </Swipeable >
     )
@@ -95,18 +98,26 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#373737',
         borderRadius: 5,
         paddingVertical: 10,
         paddingHorizontal: 15,
         marginBottom: 10
     },
+    containerlight: {
+        backgroundColor: lightTheme.boxes,
+    },
+    containerdark: {
+        backgroundColor: darkTheme.boxes
+    },
     nameAndWeight: {
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
-    text: {
-        color: 'white'
+    textlight: {
+        color: lightTheme.text
+    },
+    textdark: {
+        color: darkTheme.text
     },
     deleteAction: {
         backgroundColor: '#dd2c00',

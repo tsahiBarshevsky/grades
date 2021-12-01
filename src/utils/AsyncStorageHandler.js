@@ -42,7 +42,7 @@ const setCourses = async (map) => {
 
 const clearAll = async () => {
     try {
-        await AsyncStorage.clear()
+        await AsyncStorage.clear();
     } catch (e) {
         alert(e.message);
     }
@@ -50,4 +50,23 @@ const clearAll = async () => {
     console.log('Done.')
 }
 
-export { replacer, reviver, getCourses, setCourses, clearAll };
+const getTheme = async () => {
+    try {
+        const theme = await AsyncStorage.getItem('@theme');
+        return theme != null ? theme : 'light';
+    }
+    catch (e) {
+        alert("An unknown error occurred.");
+    }
+}
+
+const setTheme = async (theme) => {
+    try {
+        await AsyncStorage.setItem('@theme', theme);
+    }
+    catch (e) {
+        alert("An unknown error occurred.");
+    }
+}
+
+export { replacer, reviver, getCourses, setCourses, clearAll, getTheme, setTheme };

@@ -1,15 +1,24 @@
-import { StyleSheet, Platform, StatusBar, Dimensions } from "react-native";
+import { StyleSheet, Platform, StatusBar } from "react-native";
+import { darkTheme, lightTheme } from "../../utils/Themes";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#181818',
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
         paddingHorizontal: 10,
         paddingBottom: 10
     },
-    text: {
-        color: 'white'
+    containerlight: {
+        backgroundColor: lightTheme.background
+    },
+    containerdark: {
+        backgroundColor: darkTheme.background
+    },
+    textlight: {
+        color: lightTheme.text
+    },
+    textdark: {
+        color: darkTheme.text
     },
     header: {
         display: 'flex',
@@ -29,7 +38,12 @@ export const styles = StyleSheet.create({
         width: '30%',
         height: 85,
         borderRadius: 5,
-        backgroundColor: '#373737'
+    },
+    statBoxlight: {
+        backgroundColor: lightTheme.boxes,
+    },
+    statBoxdark: {
+        backgroundColor: darkTheme.boxes
     },
     yearContainer: {
         paddingHorizontal: 5
@@ -38,15 +52,25 @@ export const styles = StyleSheet.create({
         width: 80,
         alignItems: 'center',
         alignSelf: 'center',
-        backgroundColor: '#373737',
         borderRadius: 40,
         padding: 5,
         marginBottom: 10
     },
+    titleBoxlight: {
+        backgroundColor: lightTheme.boxes
+    },
+    titleBoxdark: {
+        backgroundColor: darkTheme.boxes
+    },
     title: {
-        color: '#e4d566',
         fontWeight: 'bold',
         fontSize: 15,
         letterSpacing: 1.5
+    },
+    titlelight: {
+        color: lightTheme.title
+    },
+    titledark: {
+        color: darkTheme.title
     }
 });

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Swiper from 'react-native-swiper';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearData } from '../../actions';
 import { getCourses, clearAll } from '../../utils/AsyncStorageHandler';
+import { ThemeContext } from '../../utils/ThemeManager';
 import CourseCard from './Course Card';
 import { styles } from './styles';
 
@@ -12,6 +13,7 @@ const HomeScreen = ({ navigation }) => {
 
     const courses = useSelector(state => state.courses);
     const dispatch = useDispatch();
+    const { theme } = useContext(ThemeContext);
     // Convert courses map into array
     const coursesArray = Array.from(courses, ([key, items]) => ({ key, items }));
     // Group courses array by year
@@ -81,20 +83,20 @@ const HomeScreen = ({ navigation }) => {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar style="light" />
+        <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
+            <StatusBar style={theme === 'light' ? 'dark' : 'light'} />
             <View style={styles.header}>
-                <View style={styles.statBox}>
-                    <Text style={styles.text}>{calculateGPA(courses, 'general')}</Text>
-                    <Text style={styles.text}>ממוצע מצטבר</Text>
+                <View style={[styles.statBox, styles[`statBox${theme}`]]}>
+                    <Text style={styles[`text${theme}`]}>{calculateGPA(courses, 'general')}</Text>
+                    <Text style={styles[`text${theme}`]}>ממוצע מצטבר</Text>
                 </View>
-                <View style={styles.statBox}>
-                    <Text style={styles.text}>{calculateCompletedPoints()}</Text>
-                    <Text style={styles.text}>נק"ז שהושלמו</Text>
+                <View style={[styles.statBox, styles[`statBox${theme}`]]}>
+                    <Text style={styles[`text${theme}`]}>{calculateCompletedPoints()}</Text>
+                    <Text style={styles[`text${theme}`]}>נק"ז שהושלמו</Text>
                 </View>
-                <View style={styles.statBox}>
-                    <Text style={styles.text}>{calculateAllPoints()}</Text>
-                    <Text style={styles.text}>סה"כ נק"ז</Text>
+                <View style={[styles.statBox, styles[`statBox${theme}`]]}>
+                    <Text style={styles[`text${theme}`]}>{calculateAllPoints()}</Text>
+                    <Text style={styles[`text${theme}`]}>סה"כ נק"ז</Text>
                 </View>
             </View>
             {/* <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
@@ -105,8 +107,8 @@ const HomeScreen = ({ navigation }) => {
                     return (
                         <View key={index}>
                             <ScrollView style={styles.yearContainer}>
-                                <View style={styles.titleBox}>
-                                    <Text style={styles.title}>{year}</Text>
+                                <View style={[styles.titleBox, styles[`titleBox${theme}`]]}>
+                                    <Text style={styles[`title${theme}`]}>{year}</Text>
                                 </View>
                                 {groups[year].sort(sortBySemesters).map((course) => {
                                     return (
@@ -117,7 +119,7 @@ const HomeScreen = ({ navigation }) => {
                                         />
                                     )
                                 })}
-                                <Text style={styles.text}>
+                                <Text style={styles[`text${theme}`]}>
                                     ממוצע שנתי {calculateGPA(groups[year], 'annual')}
                                 </Text>
                             </ScrollView>
