@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 15,
         borderRadius: 5,
-        marginTop: 5,
+        marginTop: 15,
         marginBottom: 10
     },
     textInputContainerlight: {
