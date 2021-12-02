@@ -14,6 +14,10 @@ export const styles = StyleSheet.create({
     containerdark: {
         backgroundColor: darkTheme.background
     },
+    center: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     textlight: {
         color: lightTheme.text
     },

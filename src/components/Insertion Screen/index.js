@@ -60,7 +60,10 @@ const InsertionScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
-            <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 15 }}>
+            <Text style={[styles.mainTitle, styles[`mainTitle${theme}`]]}>
+                הוספת קורס חדש
+            </Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <KeyboardAvoidingView
                     enabled
                     behavior={Platform.OS === 'ios' ? 'padding' : null}

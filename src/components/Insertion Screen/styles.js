@@ -14,6 +14,17 @@ export const styles = StyleSheet.create({
     containerdark: {
         backgroundColor: darkTheme.background
     },
+    mainTitle: {
+        marginVertical: 10,
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    mainTitlelight: {
+        color: '#000000'
+    },
+    mainTitledark: {
+        color: '#ffffff'
+    },
     textInputContainer: {
         width: '100%',
         paddingVertical: 5,

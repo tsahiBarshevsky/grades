@@ -80,7 +80,7 @@ const HomeScreen = ({ navigation }) => {
         });
     }, []);
 
-    return (
+    return courses.size > 0 ? (
         <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
             <StatusBar style={theme === 'light' ? 'dark' : 'light'} />
             <View style={styles.header}>
@@ -125,6 +125,11 @@ const HomeScreen = ({ navigation }) => {
                     )
                 })}
             </Swiper>
+        </SafeAreaView>
+    ) : (
+        <SafeAreaView style={[styles.container, styles[`container${theme}`], styles.center]}>
+            <StatusBar style={theme === 'light' ? 'dark' : 'light'} />
+            <Text style={styles[`text${theme}`]}>עוד לא הוספת קורסים</Text>
         </SafeAreaView>
     )
 }

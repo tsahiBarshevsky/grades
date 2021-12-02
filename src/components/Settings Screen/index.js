@@ -64,7 +64,7 @@ const SettingsScreen = () => {
                 <Text style={[styles.title, styles[`title${theme}`]]}>
                     הגדרת ציון עובר
                 </Text>
-                <Text style={styles[`text${theme}`]}>באפשרותך להגדיר ציון עובר, בהתאם למוסד הלימודים בו את/ה לומד/ת.</Text>
+                <Text style={[styles[`text${theme}`], { marginBottom: 5 }]}>באפשרותך להגדיר ציון עובר, בהתאם למוסד הלימודים בו את/ה לומד/ת.</Text>
                 <Text style={styles[`text${theme}`]}>ערך נוכחי: {score}</Text>
                 <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
                     <TextInput
