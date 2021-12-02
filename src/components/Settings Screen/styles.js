@@ -34,6 +34,13 @@ export const styles = StyleSheet.create({
     titledark: {
         color: darkTheme.title
     },
+    toggle: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 10
+    },
     divider: {
         width: '100%',
         height: 1,

@@ -19,10 +19,6 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
 
-    // useEffect(() => {
-    //     getTheme().then((value) => console.log('Value:', value));
-    // }, []);
-
     return (
         <Provider store={store}>
             <ThemeProvider>

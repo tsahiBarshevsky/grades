@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, Switch, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { ThemeContext } from '../../utils/ThemeManager';
-import { getFailure, setFailure as updateFailure } from '../../utils/AsyncStorageHandler';
+import { setFailure as updateFailure } from '../../utils/AsyncStorageHandler';
 import { styles } from './styles';
+
+import SwitchToggle from "react-native-switch-toggle";
+import { darkTheme, lightTheme } from '../../utils/Themes';
 
 const SettingsScreen = () => {
 
@@ -20,18 +23,27 @@ const SettingsScreen = () => {
     return (
         <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
             <Text style={[styles.mainTitle, styles[`mainTitle${theme}`]]}>
-                העדפות אפליקציה
+                העדפות אישיות
             </Text>
             <Text style={[styles.title, styles[`title${theme}`]]}>
-                נראות
+                נראות האפליקציה
             </Text>
-            <Switch
-                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleTheme}
-                value={theme === 'light' ? false : true}
-            />
+            <View style={styles.toggle}>
+                <Text style={styles[`text${theme}`]}>ערכת נושא (מצב מואר/מצב חשוך)</Text>
+                <SwitchToggle
+                    RTL
+                    switchOn={theme === 'light' ? false : true}
+                    onPress={toggleTheme}
+                    buttonText={theme === 'light' ? <Text>🌞</Text> : <Text>🌜</Text>}
+                    circleColorOff={lightTheme.title}
+                    circleColorOn={darkTheme.title}
+                    backgroundColorOff='#C4C4C4'
+                    backgroundColorOn={darkTheme.boxes}
+                    buttonContainerStyle={buttonContainerStyle}
+                    containerStyle={containerStyle}
+                    circleStyle={circleStyle}
+                />
+            </View>
             <View style={[styles.divider, styles[`divider${theme}`]]} />
             <Text style={[styles.title, styles[`title${theme}`]]}>
                 ציון עובר
@@ -57,5 +69,25 @@ const SettingsScreen = () => {
         </SafeAreaView>
     )
 }
+
+const containerStyle = {
+    width: 60,
+    height: 32,
+    borderRadius: 25,
+    padding: 5
+};
+
+const circleStyle = {
+    width: 25,
+    height: 25,
+    borderRadius: 12.5
+};
+
+const buttonContainerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    transform: [{ translateY: 2 }]
+};
 
 export default SettingsScreen;
