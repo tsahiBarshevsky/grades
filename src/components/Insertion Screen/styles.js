@@ -14,9 +14,6 @@ export const styles = StyleSheet.create({
     containerdark: {
         backgroundColor: darkTheme.background
     },
-    pt15: {
-        paddingTop: 15
-    },
     textInputContainer: {
         width: '100%',
         paddingVertical: 5,
