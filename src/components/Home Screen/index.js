@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import Swiper from 'react-native-swiper';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearData } from '../../actions';
-import { getCourses, clearAll } from '../../utils/AsyncStorageHandler';
+import { getCourses, clearAll, getFailure } from '../../utils/AsyncStorageHandler';
 import { ThemeContext } from '../../utils/ThemeManager';
 import CourseCard from './Course Card';
 import { styles } from './styles';
@@ -77,6 +77,10 @@ const HomeScreen = ({ navigation }) => {
     }
 
     useEffect(() => {
+        getFailure().then((res) => {
+            if (res !== null)
+                dispatch({ type: 'SET_SCORE', score: res });
+        });
         getCourses().then((res) => {
             dispatch({ type: 'SET_COURSES', courses: res });
         });

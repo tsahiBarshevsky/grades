@@ -69,4 +69,23 @@ const setTheme = async (theme) => {
     }
 }
 
-export { replacer, reviver, getCourses, setCourses, clearAll, getTheme, setTheme };
+const getFailure = async () => {
+    try {
+        const failure = await AsyncStorage.getItem('@failure');
+        return failure != null ? Number(failure) : 60;
+    }
+    catch (e) {
+        alert("An unknown error occurred.");
+    }
+}
+
+const setFailure = async (failure) => {
+    try {
+        await AsyncStorage.setItem('@failure', failure)
+    }
+    catch (e) {
+        alert("An unknown error occurred.");
+    }
+}
+
+export { replacer, reviver, getCourses, setCourses, clearAll, getTheme, setTheme, getFailure, setFailure };

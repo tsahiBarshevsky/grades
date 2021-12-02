@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect, useState } from 'react';
+import React, { useRef, useContext } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 import { Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -11,24 +11,11 @@ import { removeCourse } from '../../../actions';
 const CourseCard = ({ id, course }) => {
 
     const { theme } = useContext(ThemeContext);
-    const [color, setColor] = useState('');
     const swipeableRef = useRef(null);
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const courses = useSelector(state => state.courses);
-
-    const matchColors = () => {
-        switch (true) {
-            case (course.grade >= 0 && course.grade < 59):
-                return 'red';
-            case (course.grade >= 60 && course.grade < 79):
-                return 'orange';
-            case (course.grade >= 80 && course.grade < 89):
-                return 'yellow';
-            default:
-                return 'green';
-        }
-    }
+    const score = useSelector(state => state.score);
 
     const onEditCourse = () => {
         navigation.navigate("Course", { id: id });
@@ -65,10 +52,6 @@ const CourseCard = ({ id, course }) => {
         )
     }
 
-    useEffect(() => {
-        setColor(matchColors());
-    }, []);
-
     const editAction = (progress, dragX) => {
         const scale = dragX.interpolate({
             inputRange: [-100, 0],
@@ -98,7 +81,14 @@ const CourseCard = ({ id, course }) => {
             onSwipeableRightOpen={() => onEditCourse(id)}
         >
             <View style={[styles.container, styles[`container${theme}`]]}>
-                <View style={[styles.line, styles[`${color}${theme}`]]} />
+                <View
+                    style={[
+                        styles.line,
+                        (course.grade >= 0 && course.grade < score) ?
+                            styles[`red${theme}`]
+                            :
+                            styles[`green${theme}`]]}
+                />
                 <View style={styles.data}>
                     <View style={styles.nameAndWeight}>
                         <Text style={styles[`text${theme}`]}>{course.name}</Text>
@@ -142,18 +132,6 @@ const styles = StyleSheet.create({
     },
     reddark: {
         backgroundColor: darkTheme.red
-    },
-    orangelight: {
-        backgroundColor: lightTheme.orange
-    },
-    orangedark: {
-        backgroundColor: darkTheme.orange
-    },
-    yellowlight: {
-        backgroundColor: lightTheme.yellow
-    },
-    yellowdark: {
-        backgroundColor: darkTheme.yellow
     },
     greenlight: {
         backgroundColor: lightTheme.green
