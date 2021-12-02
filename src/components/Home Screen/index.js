@@ -3,8 +3,7 @@ import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-na
 import { StatusBar } from 'expo-status-bar';
 import Swiper from 'react-native-swiper';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearData } from '../../actions';
-import { getCourses, clearAll, getFailure } from '../../utils/AsyncStorageHandler';
+import { getCourses, getFailure } from '../../utils/AsyncStorageHandler';
 import { ThemeContext } from '../../utils/ThemeManager';
 import CourseCard from './Course Card';
 import { styles } from './styles';
@@ -65,11 +64,6 @@ const HomeScreen = ({ navigation }) => {
                 sum += course.weight;
         });
         return sum;
-    }
-
-    const clear = () => {
-        clearAll();
-        dispatch(clearData());
     }
 
     const sortBySemesters = (a, b) => {

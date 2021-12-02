@@ -18,6 +18,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-awesome-alerts": "^1.5.2",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-swipe-list-view": "^3.2.9",

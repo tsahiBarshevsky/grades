@@ -26,6 +26,7 @@ export const styles = StyleSheet.create({
         color: '#ffffff'
     },
     title: {
+        fontSize: 17,
         marginBottom: 10,
     },
     titlelight: {
@@ -82,7 +83,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 50,
         height: 35,
-        marginTop: 10
+        marginBottom: 15
     },
     buttonlight: {
         backgroundColor: lightTheme.boxes,
@@ -95,5 +96,31 @@ export const styles = StyleSheet.create({
     },
     textdark: {
         color: darkTheme.text
+    },
+    contentContainerlight: {
+        backgroundColor: lightTheme.background
+    },
+    contentContainerdark: {
+        backgroundColor: darkTheme.background
+    },
+    titleStyle: {
+        width: '100%',
+        padding: 0,
+        transform: [{ translateX: 15 }]
+    },
+    titleStylelight: {
+        color: 'black'
+    },
+    titleStyledark: {
+        color: 'white'
+    },
+    messageStylelight: {
+        color: 'black'
+    },
+    messageStyledark: {
+        color: 'white'
+    },
+    actionContainerStyle: {
+        justifyContent: 'flex-end'
     }
 });

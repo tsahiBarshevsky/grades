@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, TouchableOpacity, Alert, I18nManager } from 'react-native';
 import { useDispatch } from 'react-redux';
+import SwitchToggle from "react-native-switch-toggle";
+import AwesomeAlert from 'react-native-awesome-alerts';
 import { ThemeContext } from '../../utils/ThemeManager';
-import { setFailure as updateFailure } from '../../utils/AsyncStorageHandler';
+import { setFailure as updateFailure, clearAll } from '../../utils/AsyncStorageHandler';
+import { darkTheme, lightTheme } from '../../utils/Themes';
+import { clearData } from '../../actions';
 import { styles } from './styles';
 
-import SwitchToggle from "react-native-switch-toggle";
-import { darkTheme, lightTheme } from '../../utils/Themes';
 
 const SettingsScreen = () => {
 
     const [failure, setFailure] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
     const { toggleTheme } = React.useContext(ThemeContext);
     const { theme } = React.useContext(ThemeContext);
     const dispatch = useDispatch();
@@ -18,6 +21,12 @@ const SettingsScreen = () => {
     const onUpdateScore = () => {
         updateFailure(failure);
         dispatch({ type: 'SET_SCORE', score: failure });
+    }
+
+    const onClearData = () => {
+        clearAll()
+        dispatch(clearData());
+        setShowAlert(false);
     }
 
     return (
@@ -29,7 +38,7 @@ const SettingsScreen = () => {
                 נראות האפליקציה
             </Text>
             <View style={styles.toggle}>
-                <Text style={styles[`text${theme}`]}>ערכת נושא (מצב מואר/מצב חשוך)</Text>
+                <Text style={styles[`text${theme}`]}>ערכת נושא (מצב מואר/מצב חשוך):</Text>
                 <SwitchToggle
                     RTL
                     switchOn={theme === 'light' ? false : true}
@@ -46,7 +55,7 @@ const SettingsScreen = () => {
             </View>
             <View style={[styles.divider, styles[`divider${theme}`]]} />
             <Text style={[styles.title, styles[`title${theme}`]]}>
-                ציון עובר
+                הגדרת ציון עובר
             </Text>
             <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
                 <TextInput
@@ -62,10 +71,41 @@ const SettingsScreen = () => {
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => onUpdateScore()}
-                style={[styles.button, styles[`button${theme}`]]}
+                style={[styles.button, styles[`button${theme}`], { marginTop: 10 }]}
             >
                 <Text style={styles[`text${theme}`]}>עדכון</Text>
             </TouchableOpacity>
+            <View style={[styles.divider, styles[`divider${theme}`]]} />
+            <Text style={[styles.title, styles[`title${theme}`]]}>
+                ניקוי נתונים
+            </Text>
+            <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => setShowAlert(true)}
+                style={[styles.button, styles[`button${theme}`]]}
+            >
+                <Text style={styles[`text${theme}`]}>למחיקת כל הקורסים</Text>
+            </TouchableOpacity>
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                title="שים/י לב!"
+                message="את/ה עומד/ת למחוק את כל הנתונים שלך; פעולה זו אינה ניתנת לשחזור. האם את/ה בטו/ח?"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showCancelButton={true}
+                showConfirmButton={true}
+                cancelText="ביטול"
+                confirmText="כן, מחק"
+                cancelButtonColor="grey"
+                confirmButtonColor="#DD6B55"
+                messageStyle={styles[`messageStyle${theme}`]}
+                contentContainerStyle={styles[`contentContainer${theme}`]}
+                titleStyle={[styles.titleStyle, styles[`titleStyle${theme}`]]}
+                actionContainerStyle={styles.actionContainerStyle}
+                onCancelPressed={() => setShowAlert(false)}
+                onConfirmPressed={() => onClearData()}
+            />
         </SafeAreaView>
     )
 }
