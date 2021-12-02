@@ -1,6 +1,7 @@
 import React, { useRef, useContext } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
-import { Swipeable, TouchableOpacity } from 'react-native-gesture-handler';
+import { Animated, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { replacer, setCourses } from '../../../utils/AsyncStorageHandler';
@@ -41,13 +42,10 @@ const CourseCard = ({ id, course }) => {
 
         return (
             <View style={styles.deleteAction}>
-                <TouchableOpacity onPress={() => onRemoveCourse(id)}>
-                    <Animated.Text
-                        style={{ color: 'white', transform: [{ scale }] }}
-                    >
-                        מחיקה
-                    </Animated.Text>
-                </TouchableOpacity>
+                <Animated.View style={[styles.wrapper, { transform: [{ scale }] }]}>
+                    <MaterialIcons name="delete" size={20} color="white" />
+                    <Text style={styles.text}>מחיקה</Text>
+                </Animated.View>
             </View>
         )
     }
@@ -61,13 +59,10 @@ const CourseCard = ({ id, course }) => {
 
         return (
             <View style={styles.editAction}>
-                <TouchableOpacity onPress={() => onEditCourse(id)}>
-                    <Animated.Text
-                        style={{ color: 'white', transform: [{ scale }] }}
-                    >
-                        עריכה
-                    </Animated.Text>
-                </TouchableOpacity>
+                <Animated.View style={[styles.wrapper, { transform: [{ scale }] }]}>
+                    <MaterialIcons name="edit" size={20} color="white" />
+                    <Text style={styles.text}>עריכה</Text>
+                </Animated.View>
             </View>
         )
     }
@@ -111,8 +106,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         borderRadius: 5,
-        // paddingVertical: 10,
-        // paddingHorizontal: 15,
         marginBottom: 10
     },
     containerlight: {
@@ -152,6 +145,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
+    text: {
+        color: 'white'
+    },
     textlight: {
         color: lightTheme.text
     },
@@ -177,5 +173,8 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 10,
         paddingHorizontal: 20
+    },
+    wrapper: {
+        alignItems: 'center'
     }
 })
