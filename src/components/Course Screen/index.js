@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { View, TouchableOpacity, Text, SafeAreaView, TextInput, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 import update from 'immutability-helper';
+import { Entypo } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCourse } from '../../actions';
 import { replacer, setCourses } from '../../utils/AsyncStorageHandler';
@@ -51,11 +52,19 @@ const CourseScreen = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
-            <ScrollView showsVerticalScrollIndicator={false} style={{ marginTop: 15 }}>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <KeyboardAvoidingView
                     enabled
                     behavior={Platform.OS === 'ios' ? 'padding' : null}
                 >
+                    <View style={styles.back}>
+                        <TouchableOpacity style={styles.backButton} activeOpacity={0.7} onPress={() => navigation.goBack()}>
+                            <Entypo name="chevron-small-right" size={30} color={theme === 'light' ? '#000000' : '#ffffff'} />
+                        </TouchableOpacity>
+                        <Text style={[styles.mainTitle, styles[`mainTitle${theme}`]]}>
+                            עריכת קורס
+                        </Text>
+                    </View>
                     <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>שם הקורס</Text>
                     <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
                         <TextInput

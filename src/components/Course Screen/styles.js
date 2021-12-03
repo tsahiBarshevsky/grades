@@ -58,5 +58,30 @@ export const styles = StyleSheet.create({
     },
     textdark: {
         color: darkTheme.text
+    },
+    back: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginVertical: 10
+    },
+    mainTitle: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    mainTitlelight: {
+        color: '#000000'
+    },
+    mainTitledark: {
+        color: '#ffffff'
+    },
+    backButton: {
+        width: 25,
+        height: 25,
+        borderRadius: 12.5,
+        marginRight: 5,
+        transform: [{ translateY: -2 }],
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });

@@ -74,16 +74,28 @@ const HomeScreen = () => {
             <StatusBar style={theme === 'light' ? 'dark' : 'light'} />
             <View style={styles.header}>
                 <View style={[styles.statBox, styles[`statBox${theme}`]]}>
-                    <Text style={styles[`text${theme}`]}>{calculateGPA(courses, 'general')}</Text>
-                    <Text style={styles[`text${theme}`]}>ממוצע מצטבר</Text>
+                    <Text style={[styles[`text${theme}`], styles.statValue, styles[`statValue${theme}`]]}>
+                        {calculateGPA(courses, 'general')}
+                    </Text>
+                    <Text style={[styles[`text${theme}`], styles.statCaption]}>
+                        ממוצע מצטבר
+                    </Text>
                 </View>
                 <View style={[styles.statBox, styles[`statBox${theme}`]]}>
-                    <Text style={styles[`text${theme}`]}>{calculateCompletedPoints()}</Text>
-                    <Text style={styles[`text${theme}`]}>נק"ז שהושלמו</Text>
+                    <Text style={[styles[`text${theme}`], styles.statValue, styles[`statValue${theme}`]]}>
+                        {calculateCompletedPoints()}
+                    </Text>
+                    <Text style={[styles[`text${theme}`], styles.statCaption]}>
+                        נק"ז שהושלמו
+                    </Text>
                 </View>
                 <View style={[styles.statBox, styles[`statBox${theme}`]]}>
-                    <Text style={styles[`text${theme}`]}>{calculateAllPoints()}</Text>
-                    <Text style={styles[`text${theme}`]}>סה"כ נק"ז</Text>
+                    <Text style={[styles[`text${theme}`], styles.statValue, styles[`statValue${theme}`]]}>
+                        {calculateAllPoints()}
+                    </Text>
+                    <Text style={[styles[`text${theme}`], styles.statCaption]}>
+                        סה"כ נק"ז
+                    </Text>
                 </View>
             </View>
             <ScrollView horizontal decelerationRate="fast" snapToInterval={width} showsHorizontalScrollIndicator={false} style={{ width: width }}>
@@ -92,7 +104,7 @@ const HomeScreen = () => {
                         <View key={index} style={{ width: width, paddingHorizontal: 10 }}>
                             <ScrollView style={styles.yearContainer}>
                                 <View style={[styles.titleBox, styles[`titleBox${theme}`]]}>
-                                    <Text style={styles[`title${theme}`]}>{year}</Text>
+                                    <Text style={[styles.title, styles[`title${theme}`]]}>{year}</Text>
                                 </View>
                                 {groups[year].sort(sortBySemesters).map((course) => {
                                     return (

@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 15,
-        marginBottom: 20,
+        marginBottom: 25,
         paddingHorizontal: 15
     },
     statBox: {
@@ -48,6 +48,7 @@ export const styles = StyleSheet.create({
         width: '30%',
         height: 85,
         borderRadius: 10,
+        padding: 4
     },
     statBoxlight: {
         backgroundColor: lightTheme.boxes,
@@ -55,16 +56,32 @@ export const styles = StyleSheet.create({
     statBoxdark: {
         backgroundColor: darkTheme.boxes
     },
+    statValue: {
+        fontSize: 22,
+        fontWeight: 'bold'
+    },
+    statValuelight: {
+        color: lightTheme.title
+    },
+    statValuedark: {
+        color: darkTheme.title
+    },
+    statCaption: {
+        fontWeight: 'bold'
+    },
     yearContainer: {
         paddingHorizontal: 5
     },
     titleBox: {
-        width: 80,
+        width: 90,
+        height: 35,
         alignItems: 'center',
         alignSelf: 'center',
         borderRadius: 40,
         padding: 5,
-        marginBottom: 10
+        marginBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     titleBoxlight: {
         backgroundColor: lightTheme.boxes
@@ -74,7 +91,7 @@ export const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 16,
         letterSpacing: 1.5
     },
     titlelight: {
