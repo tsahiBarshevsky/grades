@@ -79,10 +79,12 @@ const CourseCard = ({ id, course }) => {
                 <View
                     style={[
                         styles.line,
-                        (course.grade >= 0 && course.grade < score) ?
-                            styles[`red${theme}`]
+                        (!course.grade ? styles[`container${theme}`]
                             :
-                            styles[`green${theme}`]]}
+                            (course.grade >= 0 && course.grade < score) ?
+                                styles[`red${theme}`]
+                                :
+                                styles[`green${theme}`])]}
                 />
                 <View style={styles.data}>
                     <View style={styles.nameAndWeight}>
@@ -105,8 +107,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderRadius: 5,
-        marginBottom: 10
+        borderRadius: 10,
+        marginBottom: 15
     },
     containerlight: {
         backgroundColor: lightTheme.boxes,
@@ -117,8 +119,8 @@ const styles = StyleSheet.create({
     line: {
         width: 7,
         height: '100%',
-        borderTopLeftRadius: 5,
-        borderBottomLeftRadius: 5
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8
     },
     redlight: {
         backgroundColor: lightTheme.red
@@ -158,8 +160,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#dd2c00',
         justifyContent: 'center',
         alignItems: 'flex-end',
-        borderRadius: 5,
-        marginBottom: 10,
+        borderRadius: 10,
+        marginBottom: 15,
         flex: 1,
         paddingVertical: 10,
         paddingHorizontal: 20
@@ -168,8 +170,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#388e3c',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        borderRadius: 5,
-        marginBottom: 10,
+        borderRadius: 10,
+        marginBottom: 15,
         flex: 1,
         paddingVertical: 10,
         paddingHorizontal: 20

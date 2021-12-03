@@ -1,22 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { SafeAreaView, ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { SafeAreaView, ScrollView, Text, View, Image, Dimensions } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import Swiper from 'react-native-swiper';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCourses, getFailure } from '../../utils/AsyncStorageHandler';
+import { useSelector } from 'react-redux';
 import { ThemeContext } from '../../utils/ThemeManager';
 import CourseCard from './Course Card';
 import { styles } from './styles';
 
-const HomeScreen = ({ navigation }) => {
+const { width } = Dimensions.get("window");
+
+const HomeScreen = () => {
 
     const courses = useSelector(state => state.courses);
-    const dispatch = useDispatch();
     const { theme } = useContext(ThemeContext);
     // Convert courses map into array
     const coursesArray = Array.from(courses, ([key, items]) => ({ key, items }));
     // Group courses array by year
-    const groups = coursesArray.reduce((group, course) => {
+    const groups = Array.from(courses, ([key, items]) => ({ key, items })).reduce((group, course) => {
         if (!group[course.items.year])
             group[course.items.year] = [];
         group[course.items.year].push(course);
@@ -70,16 +69,6 @@ const HomeScreen = ({ navigation }) => {
         return (a.items.semester > b.items.semester) ? 1 : ((b.items.semester > a.items.semester) ? -1 : 0);
     }
 
-    useEffect(() => {
-        // getFailure().then((res) => {
-        //     if (res !== null)
-        //         dispatch({ type: 'SET_SCORE', score: res });
-        // });
-        // getCourses().then((res) => {
-        //     dispatch({ type: 'SET_COURSES', courses: res });
-        // });
-    }, []);
-
     return courses.size > 0 ? (
         <SafeAreaView style={[styles.container, styles[`container${theme}`]]}>
             <StatusBar style={theme === 'light' ? 'dark' : 'light'} />
@@ -97,13 +86,10 @@ const HomeScreen = ({ navigation }) => {
                     <Text style={styles[`text${theme}`]}>סה"כ נק"ז</Text>
                 </View>
             </View>
-            {/* <TouchableOpacity onPress={() => console.log(courses)}><Text>הדפס</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Insertion')}><Text>הוסף</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => clear()}><Text>נקה</Text></TouchableOpacity> */}
-            <Swiper loop={false} showsPagination={false}>
-                {Object.keys(groups).map((year, index) => {
+            <ScrollView horizontal decelerationRate="fast" snapToInterval={width} showsHorizontalScrollIndicator={false} style={{ width: width }}>
+                {Object.keys(groups).reverse().map((year, index) => {
                     return (
-                        <View key={index}>
+                        <View key={index} style={{ width: width, paddingHorizontal: 10 }}>
                             <ScrollView style={styles.yearContainer}>
                                 <View style={[styles.titleBox, styles[`titleBox${theme}`]]}>
                                     <Text style={styles[`title${theme}`]}>{year}</Text>
@@ -124,7 +110,7 @@ const HomeScreen = ({ navigation }) => {
                         </View>
                     )
                 })}
-            </Swiper>
+            </ScrollView>
         </SafeAreaView>
     ) : (
         <SafeAreaView style={[styles.messageContainer, styles[`container${theme}`], styles.center]}>

@@ -2,7 +2,7 @@ const lightTheme = {
     background: '#f9f9f9',
     boxes: '#ffffff',
     text: '#000000',
-    title: '#0e8591',
+    title: '#0f3b57',
     red: '#eb5030',
     green: '#0add08'
 }

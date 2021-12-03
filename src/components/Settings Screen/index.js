@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SwitchToggle from "react-native-switch-toggle";
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { ThemeContext } from '../../utils/ThemeManager';
-import { setFailure as updateFailure, clearAll } from '../../utils/AsyncStorageHandler';
+import { setFailure as updateFailure, clearAllCourses } from '../../utils/AsyncStorageHandler';
 import { darkTheme, lightTheme } from '../../utils/Themes';
 import { clearData } from '../../actions';
 import { styles } from './styles';
@@ -30,7 +30,7 @@ const SettingsScreen = () => {
     }
 
     const onClearData = () => {
-        clearAll()
+        clearAllCourses();
         dispatch(clearData());
         setShowAlert(false);
     }

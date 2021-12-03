@@ -1,11 +1,10 @@
-import { StyleSheet, Platform, StatusBar } from "react-native";
+import { StyleSheet, Platform, StatusBar, I18nManager } from "react-native";
 import { darkTheme, lightTheme } from "../../utils/Themes";
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-        paddingHorizontal: 10,
         paddingBottom: 10
     },
     containerlight: {
@@ -39,7 +38,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 15,
         marginBottom: 20,
-        paddingHorizontal: 5
+        paddingHorizontal: 15
     },
     statBox: {
         display: 'flex',
@@ -48,7 +47,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         width: '30%',
         height: 85,
-        borderRadius: 5,
+        borderRadius: 10,
     },
     statBoxlight: {
         backgroundColor: lightTheme.boxes,

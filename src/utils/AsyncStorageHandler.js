@@ -40,11 +40,13 @@ const setCourses = async (map) => {
     }
 }
 
-const clearAll = async () => {
+const clearAllCourses = async () => {
     try {
-        await AsyncStorage.clear();
+        await AsyncStorage.removeItem('@courses');
+        return true;
     } catch (e) {
         alert(e.message);
+        return false;
     }
 
     console.log('Done.')
@@ -88,4 +90,14 @@ const setFailure = async (failure) => {
     }
 }
 
-export { replacer, reviver, getCourses, setCourses, clearAll, getTheme, setTheme, getFailure, setFailure };
+export {
+    replacer,
+    reviver,
+    getCourses,
+    setCourses,
+    clearAllCourses,
+    getTheme,
+    setTheme,
+    getFailure,
+    setFailure
+};
