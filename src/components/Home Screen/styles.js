@@ -14,6 +14,13 @@ export const styles = StyleSheet.create({
     containerdark: {
         backgroundColor: darkTheme.background
     },
+    messageContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+        paddingHorizontal: 35,
+    },
     center: {
         justifyContent: 'center',
         alignItems: 'center'
@@ -76,5 +83,9 @@ export const styles = StyleSheet.create({
     },
     titledark: {
         color: darkTheme.title
+    },
+    image: {
+        width: '100%',
+        height: 200,
     }
 });

@@ -12,17 +12,19 @@ import InsertionScreen from './src/components/Insertion Screen';
 import SettingsScreen from './src/components/Settings Screen';
 import { getTheme } from './src/utils/AsyncStorageHandler';
 import { ThemeProvider } from './src/utils/ThemeManager';
+import ApplicationNavigator from './src/ApplicationNavigator';
 
 I18nManager.forceRTL(true);
 const store = createStore(rootReducer);
-const Tab = createBottomTabNavigator();
+// const Tab = createBottomTabNavigator();
 
 const App = () => {
 
     return (
         <Provider store={store}>
             <ThemeProvider>
-                <NavigationContainer>
+                <ApplicationNavigator />
+                {/* <NavigationContainer>
                     <Tab.Navigator
                         screenOptions={{
                             tabBarHideOnKeyboard: true,
@@ -72,7 +74,7 @@ const App = () => {
                             }}
                         />
                     </Tab.Navigator>
-                </NavigationContainer>
+                </NavigationContainer> */}
             </ThemeProvider>
         </Provider>
     )

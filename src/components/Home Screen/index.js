@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { SafeAreaView, ScrollView, Text, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, Image, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Swiper from 'react-native-swiper';
 import { useDispatch, useSelector } from 'react-redux';
@@ -71,13 +71,13 @@ const HomeScreen = ({ navigation }) => {
     }
 
     useEffect(() => {
-        getFailure().then((res) => {
-            if (res !== null)
-                dispatch({ type: 'SET_SCORE', score: res });
-        });
-        getCourses().then((res) => {
-            dispatch({ type: 'SET_COURSES', courses: res });
-        });
+        // getFailure().then((res) => {
+        //     if (res !== null)
+        //         dispatch({ type: 'SET_SCORE', score: res });
+        // });
+        // getCourses().then((res) => {
+        //     dispatch({ type: 'SET_COURSES', courses: res });
+        // });
     }, []);
 
     return courses.size > 0 ? (
@@ -127,9 +127,16 @@ const HomeScreen = ({ navigation }) => {
             </Swiper>
         </SafeAreaView>
     ) : (
-        <SafeAreaView style={[styles.container, styles[`container${theme}`], styles.center]}>
+        <SafeAreaView style={[styles.messageContainer, styles[`container${theme}`], styles.center]}>
             <StatusBar style={theme === 'light' ? 'dark' : 'light'} />
-            <Text style={styles[`text${theme}`]}>עוד לא הוספת קורסים</Text>
+            <Image
+                source={require('../../../assets/Exam.png')}
+                resizeMode='contain'
+                style={styles.image}
+            />
+            <Text style={[styles[`text${theme}`], { fontSize: 18, textAlign: 'center', paddingTop: 10 }]}>
+                אחרי שמוסיפים את הקורס הראשון, כל המידע הרלוונטי לך יוצג כאן
+            </Text>
         </SafeAreaView>
     )
 }
