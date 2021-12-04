@@ -29,7 +29,7 @@ const HomeScreen = () => {
         var weights = 0;
         if (source === 'general') {
             map.forEach((course) => {
-                if (course.grade) {
+                if (course.grade || course.grade === 0) {
                     weighting += (course.grade * course.weight);
                     weights += course.weight;
                 }
@@ -37,7 +37,7 @@ const HomeScreen = () => {
         }
         else {
             map.forEach((course) => {
-                if (course.items.grade) {
+                if (course.items.grade || course.items.grade === 0) {
                     weighting += (course.items.grade * course.items.weight);
                     weights += course.items.weight;
                 }

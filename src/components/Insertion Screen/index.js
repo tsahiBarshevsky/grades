@@ -15,6 +15,7 @@ import { darkTheme, lightTheme } from '../../utils/Themes';
 const InsertionScreen = ({ navigation }) => {
 
     const [semester, setSemester] = useState("א'");
+    const [formKey, setFormKey] = useState(0);
     const weightRef = useRef(null);
     const gradeRef = useRef(null);
     const yearRef = useRef(null);
@@ -57,6 +58,7 @@ const InsertionScreen = ({ navigation }) => {
                 setCourses(jsonMap); // update AsyncStorage
                 dispatch(addNewCourse(id, newCourse)); // update store
             }
+            setFormKey(Math.random());
             navigation.navigate('StackNavigator');
         });
     }
@@ -169,6 +171,7 @@ const InsertionScreen = ({ navigation }) => {
                                     labelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
                                     labelStyle={{ marginLeft: 10, fontSize: 16 }}
                                     style={styles.radioForm}
+                                    key={formKey}
                                 />
                                 <TouchableOpacity
                                     activeOpacity={0.7}

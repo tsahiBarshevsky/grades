@@ -79,7 +79,7 @@ const CourseCard = ({ id, course }) => {
                 <View
                     style={[
                         styles.line,
-                        (!course.grade ? styles[`container${theme}`]
+                        (!course.grade && course.grade !== 0 ? styles[`container${theme}`]
                             :
                             (course.grade >= 0 && course.grade < score) ?
                                 styles[`red${theme}`]
