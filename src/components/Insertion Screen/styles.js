@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 15,
         borderRadius: 10,
-        marginBottom: 10
+        marginTop: 10
     },
     textInputContainerlight: {
         backgroundColor: lightTheme.boxes
@@ -68,5 +68,8 @@ export const styles = StyleSheet.create({
     },
     textdark: {
         color: darkTheme.text
+    },
+    error: {
+        color: '#eb5030'
     }
 });
