@@ -48,8 +48,6 @@ const clearAllCourses = async () => {
         alert(e.message);
         return false;
     }
-
-    console.log('Done.')
 }
 
 const getTheme = async () => {
@@ -90,6 +88,25 @@ const setFailure = async (failure) => {
     }
 }
 
+const getIsFirstUse = async () => {
+    try {
+        const firstUse = await AsyncStorage.getItem('@firstUse');
+        return firstUse !== null ? firstUse : 'true';
+    }
+    catch (e) {
+        alert("An unknown error occurred.");
+    }
+}
+
+const setIsFirstUse = async () => {
+    try {
+        await AsyncStorage.setItem('@firstUse', 'false');
+    }
+    catch (e) {
+        alert("An unknown error occurred.");
+    }
+}
+
 export {
     replacer,
     reviver,
@@ -99,5 +116,7 @@ export {
     getTheme,
     setTheme,
     getFailure,
-    setFailure
+    setFailure,
+    getIsFirstUse,
+    setIsFirstUse
 };
