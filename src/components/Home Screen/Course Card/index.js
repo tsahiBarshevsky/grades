@@ -148,12 +148,15 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     text: {
+        fontFamily: 'VarelaRound',
         color: 'white'
     },
     textlight: {
+        fontFamily: 'VarelaRound',
         color: lightTheme.text
     },
     textdark: {
+        fontFamily: 'VarelaRound',
         color: darkTheme.text
     },
     deleteAction: {

@@ -24,11 +24,17 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    text: {
+        fontFamily: 'VarelaRound',
+        fontSize: 18,
+        textAlign: 'center',
+        paddingTop: 10
+    },
     textlight: {
         color: lightTheme.text
     },
     textdark: {
-        color: darkTheme.text
+        color: darkTheme.text,
     },
     header: {
         display: 'flex',
@@ -63,8 +69,8 @@ export const styles = StyleSheet.create({
         backgroundColor: darkTheme.boxes
     },
     statValue: {
+        fontFamily: 'VarelaRound',
         fontSize: 22,
-        fontWeight: 'bold'
     },
     statValuelight: {
         color: lightTheme.title
@@ -73,7 +79,7 @@ export const styles = StyleSheet.create({
         color: darkTheme.title
     },
     statCaption: {
-        fontWeight: 'bold'
+        fontFamily: 'VarelaRound'
     },
     yearContainer: {
         paddingHorizontal: 5
@@ -102,7 +108,7 @@ export const styles = StyleSheet.create({
         backgroundColor: darkTheme.boxes
     },
     title: {
-        fontWeight: 'bold',
+        fontFamily: 'VarelaRound',
         fontSize: 16,
         letterSpacing: 1.5
     },

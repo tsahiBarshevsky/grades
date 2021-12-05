@@ -58,7 +58,7 @@ const ApplicationNavigator = () => {
                         tabBarIcon: ({ focused }) => (
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <FontAwesome name="graduation-cap" size={24} color={focused ? "white" : "#ffffff99"} />
-                                <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, { fontSize: 12 }]}>הקורסים שלי</Text>
+                                <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, styles.text]}>הקורסים שלי</Text>
                             </View>
                         )
                     }}
@@ -70,7 +70,7 @@ const ApplicationNavigator = () => {
                         tabBarIcon: ({ focused }) => (
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <AntDesign name="pluscircleo" size={24} color={focused ? "white" : "#ffffff99"} />
-                                <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, { fontSize: 12 }]}>הוספת קורס</Text>
+                                <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, styles.text]}>הוספת קורס</Text>
                             </View>
                         )
                     }}
@@ -82,7 +82,7 @@ const ApplicationNavigator = () => {
                         tabBarIcon: ({ focused }) => (
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <Octicons name="settings" size={24} color={focused ? "white" : "#ffffff99"} />
-                                <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, { fontSize: 12 }]}>העדפות</Text>
+                                <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, styles.text]}>העדפות</Text>
                             </View>
                         )
                     }}
@@ -112,5 +112,9 @@ const styles = StyleSheet.create({
     },
     containerdark: {
         backgroundColor: darkTheme.background
+    },
+    text: {
+        fontFamily: 'VarelaRound',
+        fontSize: 13
     }
 });

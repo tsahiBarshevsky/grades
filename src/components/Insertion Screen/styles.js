@@ -15,9 +15,9 @@ export const styles = StyleSheet.create({
         backgroundColor: darkTheme.background
     },
     mainTitle: {
+        fontFamily: 'VarelaRound',
         marginVertical: 10,
         fontSize: 20,
-        fontWeight: 'bold'
     },
     mainTitlelight: {
         color: '#000000'
@@ -39,6 +39,7 @@ export const styles = StyleSheet.create({
         backgroundColor: darkTheme.boxes
     },
     textInput: {
+        fontFamily: 'VarelaRound',
         textAlign: 'right'
     },
     textInputlight: {

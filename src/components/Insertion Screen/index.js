@@ -133,7 +133,7 @@ const InsertionScreen = ({ navigation }) => {
                                 </View>
                                 {touched.year && errors.year && <Text style={styles.error}>{errors.year}</Text>}
                                 <Text style={[
-                                    { marginTop: 10 },
+                                    { fontFamily: 'VarelaRound', marginTop: 10 },
                                     theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }
                                 ]}>
                                     סמסטר
@@ -156,7 +156,7 @@ const InsertionScreen = ({ navigation }) => {
                                     onPress={() => { handleSubmit(); setErrors({}) }}
                                     style={[styles.button, styles[`button${theme}`]]}
                                 >
-                                    <Text style={styles[`text${theme}`]}>הוספה</Text>
+                                    <Text style={[styles[`text${theme}`], { fontFamily: 'VarelaRound' }]}>הוספה</Text>
                                 </TouchableOpacity>
                             </View>
                         )}

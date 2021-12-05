@@ -115,7 +115,7 @@ const HomeScreen = () => {
                                         />
                                     )
                                 })}
-                                <Text style={styles[`text${theme}`]}>
+                                <Text style={[styles[`text${theme}`], { fontFamily: 'VarelaRound' }]}>
                                     ממוצע שנתי {calculateGPA(groups[year], 'annual')}
                                 </Text>
                             </ScrollView>
@@ -132,7 +132,7 @@ const HomeScreen = () => {
                 resizeMode='contain'
                 style={styles.image}
             />
-            <Text style={[styles[`text${theme}`], { fontSize: 18, textAlign: 'center', paddingTop: 10 }]}>
+            <Text style={[styles.text, styles[`text${theme}`]]}>
                 אחרי שמוסיפים את הקורס הראשון, כל המידע הרלוונטי לך יוצג כאן
             </Text>
         </SafeAreaView>
