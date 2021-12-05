@@ -4,13 +4,12 @@ import RadioForm from 'react-native-simple-radio-button';
 import uuid from 'react-native-uuid';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
+import { CourseSchema } from '../../utils/CourseSchema';
 import { getCourses, setCourses, replacer } from '../../utils/AsyncStorageHandler';
 import { ThemeContext } from '../../utils/ThemeManager';
 import { addNewCourse } from '../../actions';
 import { styles } from './styles';
 import { darkTheme, lightTheme } from '../../utils/Themes';
-
 
 const InsertionScreen = ({ navigation }) => {
 
@@ -21,26 +20,6 @@ const InsertionScreen = ({ navigation }) => {
     const yearRef = useRef(null);
     const dispatch = useDispatch();
     const { theme } = useContext(ThemeContext);
-
-    const schema = Yup.object().shape({
-        name: Yup.string().required('זהו שדה חובה'),
-        weight: Yup.number()
-            .moreThan(0, 'ערך זה צריך להיות מספר חיובי')
-            .required('זהו שדה חובה')
-            .typeError('ערך זה צריך להיות מספר'),
-        grade: Yup.number()
-            .nullable(true)
-            .integer('הציון צריך להיות מספר שלם')
-            .moreThan(-1, 'הציון צריך להיות גדול מאפס')
-            .lessThan(101, 'הציון לא יכול להיות גדול מ-100')
-            .typeError('ערך זה צריך להיות מספר'),
-        year: Yup.string()
-            .matches(/^[0-9]+$/, "שנה יכולה להכיל ספרות בלבד")
-            .min(4, 'שנה צריכה להכיל 4 ספרות')
-            .max(4, 'שנה צריכה להכיל 4 ספרות')
-            .required('זהו שדה חובה')
-            .typeError('ערך זה צריך להיות מספר')
-    });
 
     const onAddNewCourse = (newCourse) => {
         newCourse.weight = Number(newCourse.weight);
@@ -85,7 +64,7 @@ const InsertionScreen = ({ navigation }) => {
                             onAddNewCourse(values);
                             resetForm();
                         }}
-                        validationSchema={schema}
+                        validationSchema={CourseSchema}
                     >
                         {({ handleChange, handleSubmit, handleBlur, values, errors, setErrors, touched }) => (
                             <View>

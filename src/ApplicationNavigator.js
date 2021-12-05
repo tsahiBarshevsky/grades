@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AntDesign, Octicons } from '@expo/vector-icons';
+import { AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
 import RootStackNavigator from './components';
 import InsertionScreen from './components/Insertion Screen';
 import SettingsScreen from './components/Settings Screen';
@@ -57,8 +57,8 @@ const ApplicationNavigator = () => {
                     options={{
                         tabBarIcon: ({ focused }) => (
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <AntDesign name="home" size={24} color={focused ? "white" : "#ffffff99"} />
-                                <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, { fontSize: 12 }]}>בית</Text>
+                                <FontAwesome name="graduation-cap" size={24} color={focused ? "white" : "#ffffff99"} />
+                                <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, { fontSize: 12 }]}>הקורסים שלי</Text>
                             </View>
                         )
                     }}

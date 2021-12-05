@@ -4,19 +4,17 @@ import RadioForm from 'react-native-simple-radio-button';
 import update from 'immutability-helper';
 import { Entypo } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateCourse } from '../../actions';
+import { Formik } from 'formik';
+import { CourseSchema } from '../../utils/CourseSchema';
 import { replacer, setCourses } from '../../utils/AsyncStorageHandler';
 import { ThemeContext } from '../../utils/ThemeManager';
+import { updateCourse } from '../../actions';
 import { styles } from './styles';
 import { darkTheme, lightTheme } from '../../utils/Themes';
 
 const CourseScreen = ({ navigation, route }) => {
 
-    const [name, setName] = useState('');
-    const [weight, setWeight] = useState(null);
-    const [grade, setGrade] = useState(null);
     const [semester, setSemester] = useState('א');
-    const [year, setYear] = useState('');
     const weightRef = useRef(null);
     const gradeRef = useRef(null);
     const yearRef = useRef(null);
@@ -25,14 +23,10 @@ const CourseScreen = ({ navigation, route }) => {
     const { theme } = useContext(ThemeContext);
     const { id } = route.params;
 
-    const onUpdateCourse = () => {
-        const updatedCourse = {
-            name: name,
-            weight: Number(weight),
-            grade: grade !== '' ? Number(grade) : null,
-            semester: semester,
-            year: year
-        };
+    const onUpdateCourse = (updatedCourse) => {
+        updatedCourse.weight = Number(updatedCourse.weight);
+        updatedCourse.grade = updatedCourse.grade ? Number(updatedCourse.grade) : null;
+        updatedCourse.semester = semester;
         const temp = new Map(courses);
         const updatedMap = update(temp, { [id]: { $set: updatedCourse } });
         const jsonMap = JSON.stringify(updatedMap, replacer);
@@ -42,12 +36,7 @@ const CourseScreen = ({ navigation, route }) => {
     }
 
     useEffect(() => {
-        const course = courses.get(id);
-        setName(course.name);
-        setWeight(course.weight);
-        setGrade(course.grade);
-        setSemester(course.semester);
-        setYear(course.year);
+        setSemester(courses.get(id).semester);
     }, []);
 
     return (
@@ -65,85 +54,120 @@ const CourseScreen = ({ navigation, route }) => {
                             עריכת קורס
                         </Text>
                     </View>
-                    <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>שם הקורס</Text>
-                    <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
-                        <TextInput
-                            value={name}
-                            onChangeText={setName}
-                            placeholder="שם הקורס..."
-                            placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                            selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                            returnKeyType='next'
-                            onSubmitEditing={() => weightRef.current.focus()}
-                            style={[styles.textInput, styles[`textInput${theme}`]]}
-                            blurOnSubmit={false}
-                        />
-                    </View>
-                    <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>נק"ז</Text>
-                    <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
-                        <TextInput
-                            value={weight ? weight.toString() : ''}
-                            onChangeText={setWeight}
-                            keyboardType="number-pad"
-                            placeholder='נק"ז...'
-                            placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                            selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                            ref={weightRef}
-                            returnKeyType='next'
-                            onSubmitEditing={() => gradeRef.current.focus()}
-                            style={[styles.textInput, styles[`textInput${theme}`]]}
-                            blurOnSubmit={false}
-                        />
-                    </View>
-                    <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>ציון</Text>
-                    <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
-                        <TextInput
-                            value={grade ? grade.toString() : ''}
-                            onChangeText={setGrade}
-                            keyboardType="number-pad"
-                            placeholder='ציון... (ניתן להשאיר ריק)'
-                            placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                            selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                            ref={gradeRef}
-                            returnKeyType='next'
-                            onSubmitEditing={() => yearRef.current.focus()}
-                            style={[styles.textInput, styles[`textInput${theme}`]]}
-                            blurOnSubmit={false}
-                        />
-                    </View>
-                    <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>שנה</Text>
-                    <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
-                        <TextInput
-                            value={year ? year.toString() : ''}
-                            onChangeText={setYear}
-                            keyboardType="number-pad"
-                            placeholder='שנה...'
-                            placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                            selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
-                            ref={yearRef}
-                            style={[styles.textInput, styles[`textInput${theme}`]]}
-                        />
-                    </View>
-                    <Text style={theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }}>סמסטר</Text>
-                    <RadioForm
-                        radio_props={radio_props}
-                        initial={radio_props.map((e) => e.label).indexOf(courses.get(id).semester)}
-                        onPress={(value) => setSemester(value)}
-                        buttonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
-                        buttonSize={12}
-                        selectedButtonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
-                        selectedLabelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
-                        labelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
-                        labelStyle={{ marginLeft: 10, fontSize: 16 }}
-                        style={styles.radioForm}
-                    />
-                    <TouchableOpacity
-                        activeOpacity={0.7}
-                        onPress={() => onUpdateCourse()}
-                        style={[styles.button, styles[`button${theme}`]]}
+                    <Formik
+                        initialValues={{
+                            name: courses.get(id).name,
+                            weight: courses.get(id).weight.toString(),
+                            grade: courses.get(id).grade.toString(),
+                            year: courses.get(id).year
+                        }}
+                        // validateOnBlur={false}
+                        // validateOnChange={false}
+                        enableReinitialize
+                        onSubmit={(values, { resetForm }) => {
+                            onUpdateCourse(values);
+                            resetForm();
+                        }}
+                        validationSchema={CourseSchema}
                     >
-                        <Text style={styles[`text${theme}`]}>עדכון</Text>
-                    </TouchableOpacity>
+                        {({ handleChange, handleSubmit, handleBlur, values, errors, setErrors, touched }) => (
+                            <View>
+                                <Text style={[styles.label, styles[`label${theme}`]]}>שם הקורס</Text>
+                                <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                                    <TextInput
+                                        value={values.name}
+                                        onChangeText={handleChange('name')}
+                                        placeholder="שם הקורס..."
+                                        placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                                        selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                                        returnKeyType='next'
+                                        onSubmitEditing={() => weightRef.current.focus()}
+                                        style={[styles.textInput, styles[`textInput${theme}`]]}
+                                        blurOnSubmit={false}
+                                        onBlur={handleBlur('name')}
+                                    />
+                                </View>
+                                {touched.name && errors.name && <Text style={styles.error}>{errors.name}</Text>}
+                                <Text style={[styles.label, styles[`label${theme}`]]}>נק"ז</Text>
+                                <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                                    <TextInput
+                                        value={values.weight}
+                                        onChangeText={handleChange('weight')}
+                                        keyboardType="number-pad"
+                                        placeholder='נק"ז...'
+                                        placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                                        selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                                        ref={weightRef}
+                                        returnKeyType='next'
+                                        onSubmitEditing={() => gradeRef.current.focus()}
+                                        style={[styles.textInput, styles[`textInput${theme}`]]}
+                                        blurOnSubmit={false}
+                                        onBlur={handleBlur('weight')}
+                                    />
+                                </View>
+                                {touched.weight && errors.weight && <Text style={styles.error}>{errors.weight}</Text>}
+                                <Text style={[styles.label, styles[`label${theme}`]]}>ציון</Text>
+                                <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                                    <TextInput
+                                        value={values.grade}
+                                        onChangeText={handleChange('grade')}
+                                        keyboardType="number-pad"
+                                        placeholder='ציון... (ניתן להשאיר ריק)'
+                                        placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                                        selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                                        ref={gradeRef}
+                                        returnKeyType='next'
+                                        onSubmitEditing={() => yearRef.current.focus()}
+                                        style={[styles.textInput, styles[`textInput${theme}`]]}
+                                        blurOnSubmit={false}
+                                        onBlur={handleBlur('grade')}
+                                    />
+                                </View>
+                                {touched.grade && errors.grade && <Text style={styles.error}>{errors.grade}</Text>}
+                                <Text style={[styles.label, styles[`label${theme}`]]}>שנה</Text>
+                                <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
+                                    <TextInput
+                                        value={values.year}
+                                        onChangeText={handleChange('year')}
+                                        keyboardType="number-pad"
+                                        placeholder='שנה...'
+                                        placeholderTextColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                                        selectionColor={theme === 'light' ? '#9e9e9e' : '#ffffff80'}
+                                        ref={yearRef}
+                                        style={[styles.textInput, styles[`textInput${theme}`]]}
+                                        maxLength={4}
+                                        onBlur={handleBlur('year')}
+                                    />
+                                </View>
+                                {touched.year && errors.year && <Text style={styles.error}>{errors.year}</Text>}
+                                <Text style={[
+                                    { marginTop: 10 },
+                                    theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }
+                                ]}>
+                                    סמסטר
+                                </Text>
+                                <RadioForm
+                                    radio_props={radio_props}
+                                    initial={radio_props.map((e) => e.label).indexOf(courses.get(id).semester)}
+                                    onPress={(value) => setSemester(value)}
+                                    buttonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
+                                    buttonSize={12}
+                                    selectedButtonColor={theme === 'light' ? lightTheme.title : darkTheme.title}
+                                    selectedLabelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
+                                    labelColor={theme === 'light' ? lightTheme.text : darkTheme.text}
+                                    labelStyle={{ marginLeft: 10, fontSize: 16 }}
+                                    style={styles.radioForm}
+                                />
+                                <TouchableOpacity
+                                    activeOpacity={0.7}
+                                    onPress={() => { handleSubmit(); setErrors({}) }}
+                                    style={[styles.button, styles[`button${theme}`]]}
+                                >
+                                    <Text style={styles[`text${theme}`]}>עדכון</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                    </Formik>
                 </KeyboardAvoidingView>
             </ScrollView>
         </SafeAreaView>

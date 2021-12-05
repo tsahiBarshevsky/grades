@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 10,
         marginTop: 5,
-        marginBottom: 10
+        // marginBottom: 10
     },
     textInputContainerlight: {
         backgroundColor: lightTheme.boxes
@@ -45,7 +45,14 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 50,
         height: 35,
-        marginTop: 10
+        marginTop: 10,
+        elevation: 2,
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: '#333',
+        shadowOpacity: 0.3,
+        shadowRadius: 50,
+        marginBottom: 10,
+        marginHorizontal: 5
     },
     buttonlight: {
         backgroundColor: lightTheme.boxes,
@@ -83,5 +90,19 @@ export const styles = StyleSheet.create({
         transform: [{ translateY: -2 }],
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    error: {
+        color: '#eb5030',
+        marginTop: 5,
+        marginBottom: 10
+    },
+    label: {
+        marginTop: 5
+    },
+    labellight: {
+        color: '#9e9e9e'
+    },
+    labeldark: {
+        color: '#ffffff80'
     }
 });
