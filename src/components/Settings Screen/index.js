@@ -19,6 +19,31 @@ const SettingsScreen = () => {
     const { theme } = React.useContext(ThemeContext);
     const dispatch = useDispatch();
 
+    const containerStyle = {
+        width: 60,
+        height: 32,
+        borderRadius: 25,
+        padding: 5
+    };
+
+    const circleStyle = {
+        width: 25,
+        height: 25,
+        borderRadius: 12.5
+    };
+
+    const buttonContainerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        transform: [{ translateY: 2 }]
+    };
+
+    const buttonStyle = {
+        position: 'absolute',
+        transform: (theme === 'light' ? [{ translateX: -3 }] : [{ translateX: -30 }])
+    }
+
     const onUpdateScore = () => {
         if (failure > 0 && failure <= 100) {
             updateFailure(failure);
@@ -45,16 +70,20 @@ const SettingsScreen = () => {
                     נראות האפליקציה
                 </Text>
                 <View style={styles.toggle}>
-                    <Text style={styles[`text${theme}`]}>ערכת נושא (מצב מואר/מצב חשוך):</Text>
+                    <Text style={styles[`text${theme}`]}>ערכת נושא:</Text>
                     <SwitchToggle
                         RTL
                         switchOn={theme === 'light' ? false : true}
                         onPress={toggleTheme}
-                        buttonText={theme === 'light' ? <Text>🌞</Text> : <Text>🌜</Text>}
+                        backTextRight={theme === 'light' && <Text>🌞</Text>}
+                        backTextLeft={theme === 'dark' && <Text>🌜</Text>}
                         circleColorOff={lightTheme.title}
                         circleColorOn={darkTheme.title}
                         backgroundColorOff='#C4C4C4'
                         backgroundColorOn={darkTheme.boxes}
+                        buttonStyle={buttonStyle}
+                        rightContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+                        leftContainerStyle={{ flex: 1, alignItems: 'center', justifyContent: 'flex-start' }}
                         buttonContainerStyle={buttonContainerStyle}
                         containerStyle={containerStyle}
                         circleStyle={circleStyle}
@@ -136,25 +165,5 @@ const SettingsScreen = () => {
         </SafeAreaView>
     )
 }
-
-const containerStyle = {
-    width: 60,
-    height: 32,
-    borderRadius: 25,
-    padding: 5
-};
-
-const circleStyle = {
-    width: 25,
-    height: 25,
-    borderRadius: 12.5
-};
-
-const buttonContainerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    transform: [{ translateY: 2 }]
-};
 
 export default SettingsScreen;
