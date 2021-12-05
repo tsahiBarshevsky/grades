@@ -29,10 +29,13 @@ const InsertionScreen = ({ navigation }) => {
             .required('זהו שדה חובה')
             .typeError('ערך זה צריך להיות מספר'),
         grade: Yup.number()
+            .nullable(true)
+            .integer('הציון צריך להיות מספר שלם')
             .moreThan(-1, 'הציון צריך להיות גדול מאפס')
             .lessThan(101, 'הציון לא יכול להיות גדול מ-100')
             .typeError('ערך זה צריך להיות מספר'),
         year: Yup.string()
+            .matches(/^[0-9]+$/, "שנה יכולה להכיל ספרות בלבד")
             .min(4, 'שנה צריכה להכיל 4 ספרות')
             .max(4, 'שנה צריכה להכיל 4 ספרות')
             .required('זהו שדה חובה')
@@ -75,8 +78,8 @@ const InsertionScreen = ({ navigation }) => {
                 >
                     <Formik
                         initialValues={{ name: '', weight: '', grade: '', year: '' }}
-                        validateOnBlur={false}
-                        validateOnChange={false}
+                        // validateOnBlur={false}
+                        // validateOnChange={false}
                         enableReinitialize
                         onSubmit={(values, { resetForm }) => {
                             onAddNewCourse(values);
@@ -98,11 +101,9 @@ const InsertionScreen = ({ navigation }) => {
                                         style={[styles.textInput, styles[`textInput${theme}`]]}
                                         blurOnSubmit={false}
                                         onBlur={handleBlur('name')}
-                                        error={errors.name}
-                                        touched={touched.name}
                                     />
                                 </View>
-                                {errors.name && <Text style={styles.error}>{errors.name}</Text>}
+                                {touched.name && errors.name && <Text style={styles.error}>{errors.name}</Text>}
                                 <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
                                     <TextInput
                                         value={values.weight}
@@ -117,11 +118,9 @@ const InsertionScreen = ({ navigation }) => {
                                         style={[styles.textInput, styles[`textInput${theme}`]]}
                                         blurOnSubmit={false}
                                         onBlur={handleBlur('weight')}
-                                        error={errors.weight}
-                                        touched={touched.weight}
                                     />
                                 </View>
-                                {errors.weight && <Text style={styles.error}>{errors.weight}</Text>}
+                                {touched.weight && errors.weight && <Text style={styles.error}>{errors.weight}</Text>}
                                 <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
                                     <TextInput
                                         value={values.grade}
@@ -138,7 +137,7 @@ const InsertionScreen = ({ navigation }) => {
                                         onBlur={handleBlur('grade')}
                                     />
                                 </View>
-                                {errors.grade && <Text style={styles.error}>{errors.grade}</Text>}
+                                {touched.grade && errors.grade && <Text style={styles.error}>{errors.grade}</Text>}
                                 <View style={[styles.textInputContainer, styles[`textInputContainer${theme}`]]}>
                                     <TextInput
                                         value={values.year}
@@ -153,7 +152,7 @@ const InsertionScreen = ({ navigation }) => {
                                         onBlur={handleBlur('year')}
                                     />
                                 </View>
-                                {errors.year && <Text style={styles.error}>{errors.year}</Text>}
+                                {touched.year && errors.year && <Text style={styles.error}>{errors.year}</Text>}
                                 <Text style={[
                                     { marginTop: 10 },
                                     theme === 'light' ? { color: '#9e9e9e' } : { color: '#ffffff80' }

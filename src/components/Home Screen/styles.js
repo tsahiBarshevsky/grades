@@ -48,7 +48,13 @@ export const styles = StyleSheet.create({
         width: '30%',
         height: 85,
         borderRadius: 10,
-        padding: 4
+        padding: 4,
+        elevation: 2,
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: '#333',
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        marginBottom: 10
     },
     statBoxlight: {
         backgroundColor: lightTheme.boxes,
@@ -81,7 +87,13 @@ export const styles = StyleSheet.create({
         padding: 5,
         marginBottom: 10,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        elevation: 2,
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: '#333',
+        shadowOpacity: 0.3,
+        shadowRadius: 40,
+        marginBottom: 10
     },
     titleBoxlight: {
         backgroundColor: lightTheme.boxes
