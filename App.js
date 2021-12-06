@@ -1,5 +1,7 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
+import RNRestart from 'react-native-restart';
+import * as Updates from 'expo-updates';
 import { useFonts } from 'expo-font';
 import { I18nManager } from "react-native";
 import { createStore } from 'redux';
@@ -16,6 +18,16 @@ const App = () => {
     const [loaded] = useFonts({
         VarelaRound: require('./assets/fonts/VarelaRound-Regular.ttf')
     });
+
+
+    const reload = async () => {
+        await Updates.reloadAsync()
+    }
+
+    useEffect(() => {
+        if (!I18nManager.isRTL)
+            reload();
+    }, []);
 
     if (!loaded)
         return null;

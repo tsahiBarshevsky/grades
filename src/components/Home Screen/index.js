@@ -126,63 +126,6 @@ const HomeScreen = () => {
                 })}
 
             </ScrollView>
-            {/* <View style={{ justifyContent: 'space-around' }}>
-                <View style={{ height: 50, alignSelf: 'stretch', backgroundColor: 'pink', margin: 5 }} />
-                <View style={{ height: 50, alignSelf: 'stretch', backgroundColor: 'pink', marginHorizontal: 5 }} />
-                <View style={{ height: 50, alignSelf: 'stretch', backgroundColor: 'pink', margin: 5 }} />
-            </View> */}
-
-            {/* <View style={styles.header}>
-                <View style={[styles.statBox, styles[`statBox${theme}`]]}>
-                    <Text style={[styles[`text${theme}`], styles.statValue, styles[`statValue${theme}`]]}>
-                        {calculateGPA(courses, 'general')}
-                    </Text>
-                    <Text style={[styles[`text${theme}`], styles.statCaption]}>
-                        ממוצע מצטבר
-                    </Text>
-                </View>
-                <View style={[styles.statBox, styles[`statBox${theme}`]]}>
-                    <Text style={[styles[`text${theme}`], styles.statValue, styles[`statValue${theme}`]]}>
-                        {calculateCompletedPoints()}
-                    </Text>
-                    <Text style={[styles[`text${theme}`], styles.statCaption]}>
-                        נק"ז שהושלמו
-                    </Text>
-                </View>
-                <View style={[styles.statBox, styles[`statBox${theme}`]]}>
-                    <Text style={[styles[`text${theme}`], styles.statValue, styles[`statValue${theme}`]]}>
-                        {calculateAllPoints()}
-                    </Text>
-                    <Text style={[styles[`text${theme}`], styles.statCaption]}>
-                        סה"כ נק"ז
-                    </Text>
-                </View>
-            </View>
-            <ScrollView horizontal decelerationRate="fast" snapToInterval={width} showsHorizontalScrollIndicator={false} style={{ width: width }}>
-                {Object.keys(groups).reverse().map((year, index) => {
-                    return (
-                        <View key={index} style={{ width: width, paddingHorizontal: 10 }}>
-                            <ScrollView style={styles.yearContainer}>
-                                <View style={[styles.titleBox, styles[`titleBox${theme}`]]}>
-                                    <Text style={[styles.title, styles[`title${theme}`]]}>{year}</Text>
-                                </View>
-                                {groups[year].sort(sortBySemesters).map((course) => {
-                                    return (
-                                        <CourseCard
-                                            key={course.key}
-                                            id={course.key}
-                                            course={course.items}
-                                        />
-                                    )
-                                })}
-                                <Text style={[styles[`text${theme}`], { fontFamily: 'VarelaRound' }]}>
-                                    ממוצע שנתי {calculateGPA(groups[year], 'annual')}
-                                </Text>
-                            </ScrollView>
-                        </View>
-                    )
-                })}
-            </ScrollView> */}
         </SafeAreaView >
     ) : (
         <SafeAreaView style={[styles.messageContainer, styles[`container${theme}`], styles.center]}>
