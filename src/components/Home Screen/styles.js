@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: 15,
-        marginBottom: 25,
+        marginBottom: 15,
         paddingHorizontal: 15
     },
     statBox: {
@@ -91,7 +91,6 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 40,
         padding: 5,
-        marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 2,
@@ -99,7 +98,7 @@ export const styles = StyleSheet.create({
         shadowColor: '#333',
         shadowOpacity: 0.3,
         shadowRadius: 40,
-        marginBottom: 10
+        marginBottom: 5
     },
     titleBoxlight: {
         backgroundColor: lightTheme.boxes
@@ -121,5 +120,9 @@ export const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: 200,
+    },
+    gpa: {
+        marginTop: 10,
+        paddingHorizontal: 15
     }
 });

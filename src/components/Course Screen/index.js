@@ -58,7 +58,7 @@ const CourseScreen = ({ navigation, route }) => {
                         initialValues={{
                             name: courses.get(id).name,
                             weight: courses.get(id).weight.toString(),
-                            grade: courses.get(id).grade.toString(),
+                            grade: courses.get(id).grade ? courses.get(id).grade.toString() : '',
                             year: courses.get(id).year
                         }}
                         // validateOnBlur={false}

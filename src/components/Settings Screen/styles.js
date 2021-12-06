@@ -84,7 +84,14 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 50,
         height: 35,
-        marginBottom: 15
+        marginBottom: 15,
+        elevation: 2,
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: '#333',
+        shadowOpacity: 0.3,
+        shadowRadius: 50,
+        marginBottom: 10,
+        marginHorizontal: 5
     },
     buttonlight: {
         backgroundColor: lightTheme.boxes,

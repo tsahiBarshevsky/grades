@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         borderRadius: 10,
-        marginBottom: 15
+        //marginBottom: 15
+        marginTop: 15
     },
     containerlight: {
         backgroundColor: lightTheme.boxes,
@@ -164,7 +165,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-end',
         borderRadius: 10,
-        marginBottom: 15,
+        // marginBottom: 15,
+        marginTop: 15,
         flex: 1,
         paddingVertical: 10,
         paddingHorizontal: 20
@@ -174,7 +176,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
         borderRadius: 10,
-        marginBottom: 15,
+        // marginBottom: 15,
+        marginTop: 15,
         flex: 1,
         paddingVertical: 10,
         paddingHorizontal: 20
