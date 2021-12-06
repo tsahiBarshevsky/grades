@@ -41,6 +41,7 @@ const InsertionScreen = ({ navigation }) => {
                 dispatch(addNewCourse(id, newCourse)); // update store
             }
             setFormKey(Math.random());
+            setSemester("א'");
             navigation.navigate('StackNavigator');
         });
     }
