@@ -12,9 +12,11 @@
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
+    "algebra.js": "^0.2.6",
     "expo": "~43.0.2",
     "expo-font": "~10.0.3",
     "expo-status-bar": "~1.1.0",
+    "expo-updates": "~0.10.15",
     "formik": "^2.2.9",
     "immutability-helper": "^3.1.1",
     "react": "17.0.1",
@@ -32,8 +34,7 @@
     "react-native-web": "0.17.1",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "yup": "^0.32.11",
-    "expo-updates": "~0.10.15"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, StyleSheet, StatusBar, Button } from "react-n
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, Octicons, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import RootStackNavigator from './components';
 import InsertionScreen from './components/Insertion Screen';
 import SettingsScreen from './components/Settings Screen';
@@ -13,6 +13,7 @@ import { SkypeIndicator } from 'react-native-indicators';
 import { ThemeContext } from '../src/utils/ThemeManager';
 import { darkTheme, lightTheme } from "../src/utils/Themes";
 import WalkthroughScreen from './components/Walkthrough Screen';
+import ImproveScreen from './components/Improve Screen';
 
 const Tab = createBottomTabNavigator();
 
@@ -78,6 +79,18 @@ const ApplicationNavigator = () => {
                                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                     <AntDesign name="pluscircleo" size={24} color={focused ? "white" : "#ffffff99"} />
                                     <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, styles.text]}>הוספת קורס</Text>
+                                </View>
+                            )
+                        }}
+                    />
+                    <Tab.Screen
+                        name="Improve"
+                        component={ImproveScreen}
+                        options={{
+                            tabBarIcon: ({ focused }) => (
+                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <MaterialCommunityIcons name="calculator-variant" size={24} color={focused ? "white" : "#ffffff99"} />
+                                    <Text style={[focused ? { color: 'white' } : { color: '#ffffff99' }, styles.text]}>מקצה שיפורים</Text>
                                 </View>
                             )
                         }}

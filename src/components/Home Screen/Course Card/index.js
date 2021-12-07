@@ -9,6 +9,8 @@ import { ThemeContext } from '../../../utils/ThemeManager';
 import { darkTheme, lightTheme } from "../../../utils/Themes";
 import { removeCourse } from '../../../actions';
 
+import { Expression, Equation, parse } from 'algebra.js';
+
 const CourseCard = ({ id, course }) => {
 
     const { theme } = useContext(ThemeContext);
@@ -66,6 +68,15 @@ const CourseCard = ({ id, course }) => {
             </View>
         )
     }
+
+    // if (course.name === 'קורס 1') {
+    //     var x1 = parse(`${course.weight} * x / 11.5 + 380 / 11.5`);
+    //     var x2 = parse("72");
+    //     var eq = new Equation(x1, x2);
+    //     console.log(eq.toString());
+    //     var answer = eq.solveFor("x");
+    //     console.log("x = " + Math.ceil(answer));
+    // }
 
     return (
         <Swipeable
