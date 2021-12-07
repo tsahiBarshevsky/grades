@@ -163,7 +163,7 @@ const CourseScreen = ({ navigation, route }) => {
                                     onPress={() => { handleSubmit(); setErrors({}) }}
                                     style={[styles.button, styles[`button${theme}`]]}
                                 >
-                                    <Text style={styles[`text${theme}`]}>עדכון</Text>
+                                    <Text style={[styles[`text${theme}`], , { fontFamily: 'VarelaRound' }]}>עדכון</Text>
                                 </TouchableOpacity>
                             </View>
                         )}

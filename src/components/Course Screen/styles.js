@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 50,
         marginBottom: 10,
-        marginHorizontal: 5
+        marginHorizontal: 1
     },
     buttonlight: {
         backgroundColor: lightTheme.boxes,
